@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Service - Artik</title>
+    <title>Petoyan Auto Service - Artik</title>
     <style>
         * {
             margin: 0;
@@ -22,12 +22,12 @@
         header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 1rem 0;
+            padding: 15px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         .header-container {
@@ -37,6 +37,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .logo-container {
@@ -46,14 +47,22 @@
         }
 
         .logo {
-            height: 60px;
+            height: 70px;
             width: auto;
+            max-width: 200px;
+            object-fit: contain;
             border-radius: 8px;
         }
 
         .company-name {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .company-tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
 
         /* Language Switcher */
@@ -71,20 +80,23 @@
             border-radius: 5px;
             font-weight: bold;
             transition: all 0.3s;
+            font-size: 0.9rem;
         }
 
         .lang-btn:hover, .lang-btn.active {
             background: white;
             color: #1e3c72;
+            transform: scale(1.05);
         }
 
         /* Navigation */
         nav {
-            margin-top: 100px;
+            margin-top: 110px;
             background: #2c3e50;
             position: sticky;
-            top: 100px;
+            top: 110px;
             z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         nav ul {
@@ -104,19 +116,21 @@
             display: block;
             color: white;
             text-decoration: none;
-            padding: 15px 30px;
-            transition: background 0.3s;
+            padding: 15px 25px;
+            transition: all 0.3s;
+            font-weight: 500;
         }
 
         nav ul li a:hover {
             background: #34495e;
+            transform: translateY(-2px);
         }
 
         /* Banner */
         .banner {
-            margin-top: 140px;
+            margin-top: 150px;
             position: relative;
-            height: 500px;
+            height: 600px;
             overflow: hidden;
         }
 
@@ -132,7 +146,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -141,123 +155,130 @@
         }
 
         .banner-content h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            animation: fadeInUp 1s ease;
         }
 
         .banner-content p {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s both;
         }
 
         .cta-button {
             display: inline-block;
-            background: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
-            padding: 15px 40px;
+            padding: 18px 50px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: background 0.3s;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease 0.6s both;
         }
 
         .cta-button:hover {
-            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Sections */
         section {
-            padding: 60px 20px;
+            padding: 80px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            font-size: 2.8rem;
+            margin-bottom: 50px;
             color: #2c3e50;
             position: relative;
+            padding-bottom: 20px;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 100px;
-            height: 4px;
-            background: #e74c3c;
-            margin: 15px auto;
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            margin: 20px auto 0;
+            border-radius: 3px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-top: -30px;
+            margin-bottom: 50px;
         }
 
         /* Services */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
             margin-top: 40px;
         }
 
         .service-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: all 0.3s;
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
         }
 
         .service-card img {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
         }
 
         .service-card-content {
-            padding: 25px;
+            padding: 30px;
         }
 
         .service-card h3 {
             color: #2c3e50;
             margin-bottom: 15px;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
 
-        /* Gallery */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            cursor: pointer;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
+        .service-card p {
+            color: #7f8c8d;
+            line-height: 1.8;
         }
 
         /* Features */
         .features {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 60px 20px;
+            padding: 80px 20px;
+            margin: 60px 0;
         }
 
         .features-grid {
@@ -265,48 +286,183 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 40px;
         }
 
         .feature-item {
             text-align: center;
             padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
         }
 
         .feature-item h3 {
-            margin: 15px 0;
+            margin: 20px 0 15px;
+            font-size: 1.4rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        /* Gallery */
+        .gallery-section {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.15);
+        }
+
+        /* STAG Section */
+        .stag-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 80px 20px;
+        }
+
+        .stag-info {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .stag-info h3 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        .stag-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .stag-info li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .stag-info li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
             font-size: 1.3rem;
         }
 
         /* Contact */
-        .contact-info {
+        .contact-section {
             background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            color: white;
             margin-top: 30px;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-size: 1.3rem;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: rgba(255,255,255,0.15);
         }
 
         .contact-item strong {
-            color: #2c3e50;
-            margin-right: 10px;
-            min-width: 100px;
+            margin-right: 15px;
+            min-width: 150px;
+            font-size: 1.1rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .map-container {
+            margin-top: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
         }
 
         /* Footer */
         footer {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
+            padding: 40px 20px;
+            margin-top: 0;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        .footer-logo {
+            height: 80px;
+            margin-bottom: 20px;
         }
 
         /* Responsive */
@@ -314,6 +470,25 @@
             .header-container {
                 flex-direction: column;
                 gap: 15px;
+                text-align: center;
+            }
+
+            .logo {
+                height: 60px;
+            }
+
+            .company-name {
+                font-size: 1.4rem;
+            }
+
+            nav {
+                margin-top: 180px;
+                top: 180px;
+            }
+
+            .banner {
+                margin-top: 220px;
+                height: 400px;
             }
 
             .banner-content h1 {
@@ -324,23 +499,22 @@
                 font-size: 1.2rem;
             }
 
-            nav {
-                margin-top: 180px;
+            .section-title {
+                font-size: 2rem;
             }
 
-            .banner {
-                margin-top: 220px;
-                height: 400px;
+            .services-grid {
+                grid-template-columns: 1fr;
             }
-        }
 
-        /* Hidden class for language switching */
-        .lang-content {
-            display: none;
-        }
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
 
-        .lang-content.active {
-            display: block;
+            .contact-item strong {
+                margin-bottom: 5px;
+            }
         }
     </style>
 </head>
@@ -350,13 +524,16 @@
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="Logo" class="logo">
-                <div class="company-name" data-hy="Ավտո Սերվիս" data-ru="Авто Сервис" data-en="Auto Service">Ավտո Սերվիս</div>
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="Petoyan Logo" class="logo">
+                <div>
+                    <div class="company-name" data-hy="ԵՏՈՅԱՆ" data-ru="ПЕТОЯН" data-en="PETOYAN">ՊԵՏՅԱՆ</div>
+                    <div class="company-tagline" data-hy="Ավտոսպասարկում" data-ru="АвтоСервис" data-en="Auto Service">Ավտոսպասարկում</div>
+                </div>
             </div>
             <div class="language-switcher">
-                <button class="lang-btn active" onclick="changeLanguage('hy')">HY</button>
-                <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
-                <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn active" onclick="changeLanguage('hy')">Հայերեն</button>
+                <button class="lang-btn" onclick="changeLanguage('ru')">Русский</button>
+                <button class="lang-btn" onclick="changeLanguage('en')">English</button>
             </div>
         </div>
     </header>
@@ -364,7 +541,7 @@
     <!-- Navigation -->
     <nav>
         <ul>
-            <li><a href="#home" data-hy="լխավոր" data-ru="Главная" data-en="Home">Գլխավոր</a></li>
+            <li><a href="#home" data-hy="Գլխավոր" data-ru="Главная" data-en="Home">Գլխավոր</a></li>
             <li><a href="#oil-change" data-hy="Յուղի Փոխարինում" data-ru="Замена Масла" data-en="Oil Change">Յուղի Փոխարինում</a></li>
             <li><a href="#autogas" data-hy="Ավտոգազ" data-ru="Автогаз" data-en="Autogas">Ավտոգազ</a></li>
             <li><a href="#gallery" data-hy="Պատկերասրահ" data-ru="Галерея" data-en="Gallery">Պատկերասրահ</a></li>
@@ -374,12 +551,12 @@
 
     <!-- Banner -->
     <div class="banner" id="home">
-        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/a2f64508-6e49-401f-ab44-c40181a66931.png?v=1784542019" alt="Banner">
+        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/a2f64508-6e49-401f-ab44-c40181a66931.png?v=1784542019" alt="Auto Service Banner">
         <div class="banner-overlay">
             <div class="banner-content">
-                <h1 data-hy="Որակյալ Սպասարկում Ձեր Ավտոմեքենայի Համար" data-ru="Качественное Обслуживание Вашего Автомобиля" data-en="Quality Service for Your Vehicle">Որակյալ պասարկում Ձեր Ավտոմեքենայի Համար</h1>
-                <p data-hy="ուղի փոխարինում և ավտոգազի տեղադրում" data-ru="Замена масла и установка автогаза" data-en="Oil change and autogas installation">Յուղի փոխարինում և ավտոգազի տեղադրում</p>
-                <a href="#contact" class="cta-button" data-hy="ապվել Մեզ Հետ" data-ru="Связаться с Нами" data-en="Contact Us">Կապվել Մեզ Հետ</a>
+                <h1 data-hy="Որակյալ Սպասարկում Ձեր Ավտոմեքենայի Համար" data-ru="Качественное Обслуживание Вашего Автомобиля" data-en="Quality Service for Your Vehicle">Որակյալ Սպասարկում Ձեր Ավտոմեքենայի Համար</h1>
+                <p data-hy="Յուղի Փոխարինում և Ավտոգազի եղադրում" data-ru="Замена Масла и Установка Автогаза" data-en="Oil Change and Autogas Installation">Յուղի Փոխարինում և Ավտոգազի Տեղադրում</p>
+                <a href="tel:+37494353541" class="cta-button" data-hy="Զանգահարել Հիմա" data-ru="Позвонить Сейчас" data-en="Call Now">անգահարել Հիմա</a>
             </div>
         </div>
     </div>
@@ -387,89 +564,108 @@
     <!-- Oil Change Section -->
     <section id="oil-change">
         <h2 class="section-title" data-hy="Յուղի Փոխարինում" data-ru="Замена Масла" data-en="Oil Change Service">Յուղի Փոխարինում</h2>
+        <p class="section-subtitle" data-hy="Մասնագիտական սպասարկում Ձեր մեքենայի համար" data-ru="Профессиональное обслуживание для вашего автомобиля" data-en="Professional service for your vehicle">Մասնագիտական սպասարկում Ձեր մեքենայի համար</p>
+        
         <div class="services-grid">
             <div class="service-card">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/6305d884-527d-49d3-b6ec-bd4b8fd5f271.jpg?v=1784541416" alt="Oil Change">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/6305d884-527d-49d3-b6ec-bd4b8fd5f271.jpg?v=1784541416" alt="Engine Oil Change">
                 <div class="service-card-content">
-                    <h3 data-hy="Շարժիչի Յուղի Փոխարինում" data-ru="Замена Моторного Масла" data-en="Engine Oil Change">Շարժիչի Յուղի Փոխարինում</h3>
-                    <p data-hy="Մենք օգտագործում ենք միայն բարձրորակ ուղեր Ձեր շարժիչի երկարակեցության համար։" data-ru="Мы используем только качественные масла для долговечности вашего двигателя." data-en="We use only high-quality oils for your engine's longevity.">Մենք օգտագործում ենք միայն բարձրորակ յուղեր Ձեր շարժիչի երկարակեցության համար։</p>
+                    <h3 data-hy="արժիչի Յուղի Փոխարինում" data-ru="Замена Моторного Масла" data-en="Engine Oil Change">Շարժիչի Յուղի Փոխարինում</h3>
+                    <p data-hy="Մենք օգտագործում ենք միայն բարձրորակ ուղեր Ձեր շարիչի երկարակեցության համար։ Արագ և որակյալ սպասարկում։" data-ru="Мы используем только качественные масла для долговечности вашего двигателя. Быстрое и качественное обслуживание." data-en="We use only high-quality oils for your engine's longevity. Fast and quality service.">Մենք գտագործում ենք միայն բարձրորակ ուղեր Ձեր շարժիչի երկարակեցության համար։ Արագ և որակյալ սպասարկում։</p>
                 </div>
             </div>
             <div class="service-card">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/86c69759-ffe6-4eea-bc73-4d171bc5b527.jpg?v=1784541416" alt="Oil Filter">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/86c69759-ffe6-4eea-bc73-4d171bc5b527.jpg?v=1784541416" alt="Filter Replacement">
                 <div class="service-card-content">
                     <h3 data-hy="Ֆիլտրերի Փոխարինում" data-ru="Замена Фильтров" data-en="Filter Replacement">Ֆիլտրերի Փոխարինում</h3>
-                    <p data-hy="ուղի, օդի և վառելիքի ֆիլտրերի պրոֆեսիոնալ փոխարինում։" data-ru="Профессиональная замена масляных, воздушных и топливных фильтров." data-en="Professional replacement of oil, air, and fuel filters.">Յուղի, օդի և վառելիքի ֆիլտրերի պրոֆեսիոնալ ոխարինում։</p>
+                    <p data-hy="Յուղի, օդի և վառելիքի ֆիլտրերի պրոֆեսիոնալ փոխարինում։" data-ru="Профессиональная замена масляных, воздушных и топливных фильтров." data-en="Professional replacement of oil, air, and fuel filters.">Յուղի, օդի և վառելիքի ֆիլտրերի պրոֆեսիոնալ փոխարինում։</p>
                 </div>
             </div>
             <div class="service-card">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/37161adc-6708-49cd-95c8-77021fc09ec1.jpg?v=1784541416" alt="Diagnostics">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/37161adc-6708-49cd-95c8-77021fc09ec1.jpg?v=1784541416" alt="Free Diagnostics">
                 <div class="service-card-content">
                     <h3 data-hy="Անվճար Ախտորոշում" data-ru="Бесплатная Диагностика" data-en="Free Diagnostics">Անվճար Ախտորոշում</h3>
-                    <p data-hy="Յուղի փոխարինման ամանակ անվճար ստուգում ենք Ձեր մեքենան։" data-ru="Бесплатная проверка вашего автомобиля при замене масла." data-en="Free vehicle check during oil change.">ուղի փոխարինման ժամանակ անվար ստուգում ենք Ձեր մեքենան։</p>
+                    <p data-hy="Յուղի փոխարինման ժամանակ անվճար ստուգում ենք Ձեր մեքենան։" data-ru="Бесплатная проверка вашего автомобиля при замене масла." data-en="Free vehicle check during oil change.">Յուղի փոխարինման ժամանակ անվար ստուգում ենք Ձեր մեքենան։</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Autogas Section -->
-    <section id="autogas" style="background: white;">
-        <h2 class="section-title" data-hy="Ավտոգազի Տեղադրում (LPG)" data-ru="Установка Автогаза (LPG)" data-en="Autogas Installation (LPG)">Ավտոգազի Տեղադրում (LPG)</h2>
-        
-        <div class="services-grid">
-            <div class="service-card">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8cb79ae0-62a7-4131-9dfa-3504211a7384.png?v=1784541418" alt="STAG System">
-                <div class="service-card-content">
-                    <h3 data-hy="STAG Համակարգեր" data-ru="Системы STAG" data-en="STAG Systems">STAG Համակարգեր</h3>
-                    <p data-hy="Լեհական արտադրության STAG ավտոգազի համակարգեր։ 30+ տարվա փորձ։" data-ru="Польские системы автогаза STAG. Более 30 лет опыта." data-en="Polish-made STAG autogas systems. 30+ years of experience.">Լեհական արտադրության STAG ավտոգազի համակարգեր։ 30+ տարվա փորձ։</p>
-                </div>
+    <section id="autogas" class="stag-section">
+        <div class="stag-info">
+            <h2 class="section-title" data-hy="Ավտոգազի Տեղադրում (LPG)" data-ru="Установка Автогаза (LPG)" data-en="Autogas Installation (LPG)">Ավտոգազի եղադրում (LPG)</h2>
+            <p class="section-subtitle" data-hy="STAG համակարգեր - Լեհական որակ" data-ru="Системы STAG - Польское качество" data-en="STAG Systems - Polish Quality">STAG համակարգեր - Լեհական որակ</p>
+            
+            <div style="margin-bottom: 40px;">
+                <h3 data-hy="Ինչու Ընտրել Ավտոգազ" data-ru="Почему Выбрать Автогаз" data-en="Why Choose Autogas">Ինչու Ընտրել Ավտոգազ</h3>
+                <ul>
+                    <li data-hy="Խնայողություն մինչև 50% - LPG-ն 2 անգամ ավելի էժան է, քան բենզինը" data-ru="Экономия до 50% - LPG в 2 раза дешевле бензина" data-en="Save up to 50% - LPG is 2x cheaper than petrol">Խնայողություն մինչև 50% - LPG-ն 2 անգամ ավելի էժան է, քան բենզինը</li>
+                    <li data-hy="Միջազգային երաշխիք բոլոր համակարգերի համար" data-ru="Международная гарантия на все системы" data-en="International warranty on all systems">Միջազգային երաշխիք բոլոր համակարգերի համար</li>
+                    <li data-hy="STAG - 30+ տարվա փորձ, 6 միլիոն մեքենա ամբողջ աշխարհում" data-ru="STAG - 30+ лет опыта, 6 миллионов автомобилей по всему миру" data-en="STAG - 30+ years experience, 6 million cars worldwide">STAG - 30+ տարվա փորձ, 6 միլիոն մեքենա ամբողջ աշխարհում</li>
+                    <li data-hy="կոլոգիապես մաքուր - ավելի քիչ վնասակար արտանետումներ" data-ru="Экологично - меньше вредных выбросов" data-en="Eco-friendly - lower harmful emissions">Էկոլոգիապես մաքուր - ավելի քիչ վնասակար արտանետումներ</li>
+                    <li data-hy="Արագ տեղադրում և մասնագիտական սպասարկում" data-ru="Быстрая установка и профессиональное обслуживание" data-en="Fast installation and professional service">Արագ տեղադրում և մասնագիտական սպասարկում</li>
+                </ul>
             </div>
-            <div class="service-card">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/22a41719-1140-4ddf-9c68-b1e17706d42a.png?v=1784541418" alt="Savings">
-                <div class="service-card-content">
-                    <h3 data-hy="նայողություն մինչև 50%" data-ru="Экономия до 50%" data-en="Save up to 50%">Խնայողություն մինչև 50%</h3>
-                    <p data-hy="LPG-ն 2 անգամ ավելի էան է, քան բենզինը։ Տեղադրումը արագ փոխհատուցվում է։" data-ru="LPG в 2 раза дешевле бензина. Установка быстро окупается." data-en="LPG is 2x cheaper than petrol. Installation pays off quickly.">LPG-ն 2 անգամ ավելի էժան է, քան բենզինը։ Տեղադրումը արագ փոխհատուցվում է։</p>
-                </div>
-            </div>
-            <div class="service-card">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e57d3985-a6ef-40b1-b3bf-e3f2a471aafb.png?v=1784541418" alt="Warranty">
-                <div class="service-card-content">
-                    <h3 data-hy="Միջազգային Երաշխիք" data-ru="Международная Гарантия" data-en="International Warranty">իջազգային Երաշխիք</h3>
-                    <p data-hy="Մենք տրամադրում ենք միջազգային երաշխիք բոլոր մեր տեղադրած համակարգերի համար։" data-ru="Предоставляем международную гарантию на все установленные системы." data-en="We provide international warranty on all installed systems.">Մենք տրամադրում ենք միջազգային երաշխիք բոլոր մեր տեղադրած համակարգերի համար։</p>
-                </div>
-            </div>
-        </div>
 
-        <div style="margin-top: 50px;">
-            <h3 class="section-title" data-hy="Ինչու Ընտրել Ավտոգազ" data-ru="Почему Выбрать Автогаз" data-en="Why Choose Autogas">Ինչու Ընտրել Ավտոգազ</h3>
-            <div class="features">
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <h3 data-hy="նտեսական" data-ru="Экономично" data-en="Economical">Տնտեսական</h3>
-                        <p data-hy="LPG-ն 50%-ով ավելի էժան է" data-ru="LPG на 50% дешевле" data-en="LPG is 50% cheaper">LPG-ն 50%-ով ավելի էժան է</p>
+            <h3 data-hy="STAG Համակարգի Բաղադրիչներ" data-ru="Компоненты Системы STAG" data-en="STAG System Components">STAG Համակարգի Բաղադրիչներ</h3>
+            <div class="services-grid" style="margin-top: 30px;">
+                <div class="service-card">
+                    <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8cb79ae0-62a7-4131-9dfa-3504211a7384.png?v=1784541418" alt="STAG Controller">
+                    <div class="service-card-content">
+                        <h3 data-hy="STAG Վերահսկիչ" data-ru="Контроллер STAG" data-en="STAG Controller">STAG Վերահսկիչ</h3>
+                        <p data-hy="Համակարգի սիրտը։ Որոշում է ամբողջ համակարգի աշխատանքը։" data-ru="Сердце системы. Определяет работу всей системы." data-en="The heart of the system. Controls the entire operation.">Համակարգի սիրտը։ Որոշում է ամբողջ համակարգի աշխատանքը։</p>
                     </div>
-                    <div class="feature-item">
-                        <h3 data-hy="Էկոլոգիապես Մաքուր" data-ru="Экологично" data-en="Eco-Friendly">Էկոլոգիապես Մաքուր</h3>
-                        <p data-hy="Ավելի քիչ վնասակար արտանետումներ" data-ru="Меньше вредных выбросов" data-en="Lower harmful emissions">Ավելի քիչ վնասակար արտանետումներ</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/22a41719-1140-4ddf-9c68-b1e17706d42a.png?v=1784541418" alt="Gas Injectors">
+                    <div class="service-card-content">
+                        <h3 data-hy="Գազային Ներարկիչներ" data-ru="Газовые Форсунки" data-en="Gas Injectors">ազային Ներարկիչներ</h3>
+                        <p data-hy="Ճշգրիտ ուղղորդում են գազը այրման խցիկ։" data-ru="Точно направляют газ в камеру сгорания." data-en="Precisely direct gas into the combustion chamber.">շգրիտ ուղղորդում են գազը այրման խցիկ։</p>
                     </div>
-                    <div class="feature-item">
-                        <h3 data-hy="Անվտանգություն" data-ru="Безопасность" data-en="Safety">Անվտանգություն</h3>
-                        <p data-hy="Ժամանակակից անվտանգության համակարգեր" data-ru="Современные системы безопасности" data-en="Modern safety systems">Ժամանակակից անվտանգության համակարգեր</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3 data-hy="Որակյալ Սարքավորում" data-ru="Качественное Оборудование" data-en="Quality Equipment">Որակյալ Սարքավորում</h3>
-                        <p data-hy="STAG - լեհական արտադրություն" data-ru="STAG - польское производство" data-en="STAG - Polish made">STAG - լեհական արտադրություն</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e57d3985-a6ef-40b1-b3bf-e3f2a471aafb.png?v=1784541418" alt="Reducer">
+                    <div class="service-card-content">
+                        <h3 data-hy="Ռեդուկտոր" data-ru="Редуктор" data-en="Reducer">Ռեդուկտոր</h3>
+                        <p data-hy="Նվազեցնում է գազի ճնշումը և տաքացնում գազը։" data-ru="Снижает давление газа и подогревает газ." data-en="Reduces gas pressure and heats the gas.">Նվազեցնում է գազի ճնշումը և տաքացնում գազը։</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Features -->
+    <div class="features">
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">💰</div>
+                <h3 data-hy="Խնայողություն" data-ru="Экономия" data-en="Savings">Խնայողություն</h3>
+                <p data-hy="LPG-ն 50%-ով ավելի էան է" data-ru="LPG на 50% дешевле" data-en="LPG is 50% cheaper">LPG-ն 50%-ով ավելի էժան է</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌍</div>
+                <h3 data-hy="Միջազգային Երաշխիք" data-ru="Международная Гарантия" data-en="International Warranty">Միջազգային Երաշխիք</h3>
+                <p data-hy="Անվտանգություն ճանապարհին" data-ru="Безопасность в дороге" data-en="Safety on the road">Անվտանգություն ճանապարհին</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔧</div>
+                <h3 data-hy="Սպասարկման Ցանց" data-ru="Сеть Сервисов" data-en="Service Network">պասարկման Ցանց</h3>
+                <p data-hy="Ընդարակ սպասարկման ցանց Եվրոպայում" data-ru="Обширная сеть сервисов в Европе" data-en="Extensive service network in Europe">Ընդարձակ սպասարկման ցանց Եվրոպայում</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"></div>
+                <h3 data-hy="Էկոլոգիա" data-ru="Экология" data-en="Ecology">Էկոլոգիա</h3>
+                <p data-hy="Ավելի մաքուր օդ, քիչ արտանետումներ" data-ru="Чище воздух, меньше выбросов" data-en="Cleaner air, less emissions">Ավելի մաքուր օդ, քիչ արտանետումներ</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Gallery Section -->
-    <section id="gallery">
-        <h2 class="section-title" data-hy="Մեր Աշխատանքները" data-ru="Наши Работы" data-en="Our Work">եր Աշխատանքները</h2>
+    <section id="gallery" class="gallery-section">
+        <h2 class="section-title" data-hy="եր Աշխատանքները" data-ru="Наши Работы" data-en="Our Work">Մեր Աշխատանքները</h2>
         
-        <h3 style="text-align: center; margin: 30px 0; color: #2c3e50;" data-hy="Յուղի Փոխարինում" data-ru="Замена Масла" data-en="Oil Change">ուղի Փոխարինում</h3>
+        <h3 style="text-align: center; margin: 40px 0 20px; color: #2c3e50; font-size: 1.8rem;" data-hy="Յուղի Փոխարինում" data-ru="Замена Масла" data-en="Oil Change">Յուղի Փոխարինում</h3>
         <div class="gallery">
             <div class="gallery-item">
                 <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/6305d884-527d-49d3-b6ec-bd4b8fd5f271.jpg?v=1784541416" alt="Service 1">
@@ -497,54 +693,61 @@
             </div>
         </div>
 
-        <h3 style="text-align: center; margin: 50px 0 30px; color: #2c3e50;" data-hy="Ավտոգազի եղադրում" data-ru="Установка Автогаза" data-en="Autogas Installation">Ավտոգազի եղադրում</h3>
+        <h3 style="text-align: center; margin: 60px 0 20px; color: #2c3e50; font-size: 1.8rem;" data-hy="Ավտոգազի Տեղադրում" data-ru="Установка Автогаза" data-en="Autogas Installation">Ավտոգազի Տեղադրում</h3>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8cb79ae0-62a7-4131-9dfa-3504211a7384.png?v=1784541418" alt="Gas 1">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8cb79ae0-62a7-4131-9dfa-3504211a7384.png?v=1784541418" alt="Gas Installation 1">
             </div>
             <div class="gallery-item">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/22a41719-1140-4ddf-9c68-b1e17706d42a.png?v=1784541418" alt="Gas 2">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/22a41719-1140-4ddf-9c68-b1e17706d42a.png?v=1784541418" alt="Gas Installation 2">
             </div>
             <div class="gallery-item">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e57d3985-a6ef-40b1-b3bf-e3f2a471aafb.png?v=1784541418" alt="Gas 3">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e57d3985-a6ef-40b1-b3bf-e3f2a471aafb.png?v=1784541418" alt="Gas Installation 3">
             </div>
             <div class="gallery-item">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/f6c756ce-d247-4a12-9490-789e331bb9ed.jpg?v=1784541416" alt="Gas 4">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/f6c756ce-d247-4a12-9490-789e331bb9ed.jpg?v=1784541416" alt="Gas Installation 4">
             </div>
             <div class="gallery-item">
-                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e24e7121-0e5f-4f50-ad7a-dec1b6bfbefd.jpg?v=1784541416" alt="Gas 5">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e24e7121-0e5f-4f50-ad7a-dec1b6bfbefd.jpg?v=1784541416" alt="Gas Installation 5">
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" style="background: white;">
-        <h2 class="section-title" data-hy="Կապ Մեզ Հետ" data-ru="Свяжитесь с Нами" data-en="Contact Us">Կապ Մեզ Հետ</h2>
+    <section id="contact" class="contact-section">
+        <h2 class="section-title" data-hy="Կապ Մեզ Հետ" data-ru="Свяжитесь с Нами" data-en="Contact Us">Կապ եզ Հետ</h2>
         
         <div class="contact-info">
             <div class="contact-item">
-                <strong data-hy="Հեռախոս" data-ru="Телефон" data-en="Phone">Հեռախոս</strong>
-                <span><a href="tel:+37494353541" style="color: #2c3e50; text-decoration: none;">+374 94 353541</a></span>
+                <strong>📞 <span data-hy="Հեռախոս" data-ru="Телефон" data-en="Phone">Հեռախոս</span></strong>
+                <span><a href="tel:+37494353541">+374 94 353541</a></span>
             </div>
             <div class="contact-item">
-                <strong data-hy="Հասցե" data-ru="Адрес" data-en="Address">Հասցե</strong>
+                <strong>📍 <span data-hy="Հասցե" data-ru="Адрес" data-en="Address">Հասցե</span></strong>
                 <span data-hy="Հայաստան, Արթիկ ք., Շահումյան փ., 3-րդ նրբանցք" data-ru="Армения, г. Артик, ул. Шаумяна, 3-й переулок" data-en="Armenia, Artik town, Shahumyan st, 3rd lane">Հայաստան, Արթիկ ք., Շահումյան փ., 3-րդ նրբանցք</span>
             </div>
             <div class="contact-item">
-                <strong data-hy="Աշխատանքային ժամեր" data-ru="Рабочие часы" data-en="Working Hours">Աշխատանքային ամեր</strong>
-                <span data-hy="Երկ - Շբթ: 9:00 - 18:00" data-ru="Пн - Сб: 9:00 - 18:00" data-en="Mon - Sat: 9:00 - 18:00">րկ - Շբթ: 9:00 - 18:00</span>
+                <strong>🕐 <span data-hy="Աշխատանքային Ժամեր" data-ru="Рабочие Часы" data-en="Working Hours">Աշխատանքային Ժամեր</span></strong>
+                <span data-hy="Երկ - Շբթ: 9:00 - 18:00" data-ru="Пн - Сб: 9:00 - 18:00" data-en="Mon - Sat: 9:00 - 18:00">Երկ - Շբթ: 9:00 - 18:00</span>
             </div>
         </div>
 
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.1234567890123!2d43.12345678901234!3d40.12345678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDA3JzI0LjQiTiA0M8KwMDcnMjQuNCJF!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
         <div style="margin-top: 40px; text-align: center;">
-            <a href="tel:+37494353541" class="cta-button" style="font-size: 1.3rem; padding: 20px 50px;" data-hy="Զանգահարել Հիմա" data-ru="Позвонить Сейчас" data-en="Call Now">Զանգահարել Հիմա</a>
+            <a href="tel:+37494353541" class="cta-button" style="font-size: 1.4rem; padding: 25px 60px;" data-hy="Զանգահարել Հիմա" data-ru="Позвонить Сейчас" data-en="Call Now">Զանգահարել Հիմա</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p data-hy="© 2024 Ավտո Սերվիս - Բոլոր իրավունքները պաշտպանված են" data-ru="© 2024 Авто Сервис - Все права защищены" data-en="© 2024 Auto Service - All rights reserved">© 2024 Ավտո Սերվիս - Բոլոր րավունքները պաշտպանված են</p>
-        <p style="margin-top: 10px; font-size: 0.9rem;" data-hy="Արթիկ, Շահումյան փ., 3-րդ նրբանցք" data-ru="Артик, ул. Шаумяна, 3-й переулок" data-en="Armenia, Artik, Shahumyan st, 3rd lane">Արթիկ, Շահումյան փ., 3-րդ նրբանցք</p>
+        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="Petoyan Logo" class="footer-logo">
+        <p style="font-size: 1.5rem; font-weight: bold;" data-hy="ՊՏՈՅԱՆ" data-ru="ПЕТОЯН" data-en="PETOYAN">ՊՏՈՅԱՆ</p>
+        <p data-hy="© 2024 Ավտո երվիս - Բոլոր իրավունքները պաշտպանված են" data-ru="© 2024 Авто Сервис - Все права защищены" data-en="© 2024 Auto Service - All rights reserved">© 2024 Ավտո Սերվիս - Բոլոր րավունքները պաշտպանված են</p>
+        <p style="margin-top: 15px; font-size: 1rem;" data-hy="Արթիկ, Շահումյան փ., 3-րդ նրբանցք" data-ru="Артик, ул. Шаумяна, 3-й переулок" data-en="Armenia, Artik, Shahumyan st, 3rd lane">Արթիկ, Շահումյան փ., 3-րդ նրբանցք</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">📞 +374 94 353541</p>
     </footer>
 
     <script>
@@ -564,7 +767,23 @@
 
             // Update HTML lang attribute
             document.documentElement.lang = lang;
+            
+            // Save language preference
+            localStorage.setItem('preferredLanguage', lang);
         }
+
+        // Load saved language preference
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'hy';
+            if (savedLang !== 'hy') {
+                // Find and click the appropriate button
+                const buttons = document.querySelectorAll('.lang-btn');
+                const langMap = { 'hy': 0, 'ru': 1, 'en': 2 };
+                if (buttons[langMap[savedLang]]) {
+                    buttons[langMap[savedLang]].click();
+                }
+            }
+        });
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -578,6 +797,16 @@
                     });
                 }
             });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.4)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+            }
         });
     </script>
 </body>
