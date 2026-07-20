@@ -1,1 +1,487 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ավտոսերվիս - Ավտոգազ և Հեղուկ Փոխարինում</title>
+    <meta name="description" content="Հայաստանի լավագույն ավտոսերվիս: Ավտոգազի տեղադրում և մոտորային հեղուկի փոխարինում">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        :root {
+            --primary: #1a3a6c;
+            --secondary: #d4af37;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .lang-selector {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 8px 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .active-lang {
+            background: var(--primary);
+            color: white;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            max-height: 60px;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 80vh;
+            background: url('https://cdn.shopify.com/s/files/1/0685/0786/1063/files/a2f64508-6e49-401f-ab44-c40181a66931.png?v=1784542019') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            color: white;
+            max-width: 1200px;
+            padding: 0 5%;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid var(--secondary);
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-info {
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 40px 0;
+        }
+
+        .contact-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .phone {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .language-content {
+            display: none;
+        }
+
+        .language-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .lang-selector {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Selector -->
+    <div class="lang-selector">
+        <button class="lang-btn active-lang" data-lang="hy">Հայերեն</button>
+        <button class="lang-btn" data-lang="ru">Русский</button>
+        <button class="lang-btn" data-lang="en">English</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="Auto Service Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#services">Ծառայություններ</a></li>
+                    <li><a href="#about">Մեր մասին</a></li>
+                    <li><a href="#contact">Կապ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="lang-content" data-lang="hy">Ավտոսերվիս Հայաստանում</h1>
+            <h1 class="lang-content" data-lang="ru">Автосервис в Армении</h1>
+            <h1 class="lang-content" data-lang="en">Auto Service in Armenia</h1>
+            
+            <p class="lang-content" data-lang="hy">Կատարեք ավտոգազի տեղադրում և հեղուկի փոխարինում հավասարակշռված գնով և բարձր որակով</p>
+            <p class="lang-content" data-lang="ru">Установите автогаз и замените масло по выгодной цене с гарантией качества</p>
+            <p class="lang-content" data-lang="en">Install autogas and change oil at competitive prices with quality guarantee</p>
+            
+            <a href="#services" class="btn lang-content" data-lang="hy">Ծառայություններ</a>
+            <a href="#services" class="btn lang-content" data-lang="ru">Услуги</a>
+            <a href="#services" class="btn lang-content" data-lang="en">Services</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="section-title">
+            <h2 class="lang-content" data-lang="hy">Մեր Ծառայությունները</h2>
+            <h2 class="lang-content" data-lang="ru">Наши Услуги</h2>
+            <h2 class="lang-content" data-lang="en">Our Services</h2>
+        </div>
+        
+        <div class="services-grid">
+            <!-- Oil Change Service -->
+            <div class="service-card">
+                <div class="service-img">
+                    <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/6305d884-527d-49d3-b6ec-bd4b8fd5f271.jpg?v=1784541416" alt="Oil Change">
+                </div>
+                <div class="service-content">
+                    <h3 class="lang-content" data-lang="hy">Հեղուկի Փոխարինում</h3>
+                    <h3 class="lang-content" data-lang="ru">Замена Масла</h3>
+                    <h3 class="lang-content" data-lang="en">Oil Change</h3>
+                    
+                    <p class="lang-content" data-lang="hy">Գործարկեք Ձեր ավտոմեքենան նորությամբ: Մենք օգտագործում ենք բարձրորակ հեղուկներ և համապատասխան ֆիլտրեր:</p>
+                    <p class="lang-content" data-lang="ru">Оживите ваш автомобиль с нуля. Мы используем высококачественные масла и оригинальные фильтры.</p>
+                    <p class="lang-content" data-lang="en">Revitalize your car with premium quality. We use top-grade oils and genuine filters.</p>
+                    
+                    <div class="gallery">
+                        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/3cfb3edd-94cc-4678-9532-ecae8ae5d2fe.png?v=1784541418" alt="Oil Change 1">
+                        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/d80237d2-5388-4930-9445-2fe0e9be19de.png?v=1784541419" alt="Oil Change 2">
+                        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/f11898f8-b339-4aee-b30f-7529b658bfef.png?v=1784541418" alt="Oil Change 3">
+                        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/03563d46-76b8-4807-abad-ca6b346b41a1.png?v=1784541419" alt="Oil Change 4">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Autogas Installation -->
+            <div class="service-card">
+                <div class="service-img">
+                    <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8cb79ae0-62a7-4131-9dfa-3504211a7384.png?v=1784541418" alt="Autogas">
+                </div>
+                <div class="service-content">
+                    <h3 class="lang-content" data-lang="hy">Ավտոգազի Տեղադրում</h3>
+                    <h3 class="lang-content" data-lang="ru">Установка Автогаза</h3>
+                    <h3 class="lang-content" data-lang="en">Autogas Installation</h3>
+                    
+                    <p class="lang-content" data-lang="hy">Տեղադրեք ավտոգազ համակարգ Ձեր ավտոմեքենայում համաձայն STAG տեխնոլոգիայի: Համապատասխանում ենք բոլոր անվտանգության ստանդարտներին:</p>
+                    <p class="lang-content" data-lang="ru">Установите газовую систему STAG на ваш автомобиль. Соответствует всем стандартам безопасности и экологичности.</p>
+                    <p class="lang-content" data-lang="en">Install STAG autogas system on your vehicle. Compliant with all safety and environmental standards.</p>
+                    
+                    <div class="gallery">
+                        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/22a41719-1140-4ddf-9c68-b1e17706d42a.png?v=1784541418" alt="Autogas 1">
+                        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e57d3985-a6ef-40b1-b3bf-e3f2a471aafb.png?v=1784541418" alt="Autogas 2">
+                        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/f6c756ce-d247-4a12-9490-789e331bb9ed.jpg?v=1784541416" alt="Autogas 3">
+                        <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e24e7121-0e5f-4f50-ad7a-dec1b6bfbefd.jpg?v=1784541416" alt="Autogas 4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-info">
+        <h2 class="lang-content" data-lang="hy">Կապվեք Մեզ Հետ</h2>
+        <h2 class="lang-content" data-lang="ru">Свяжитесь С Нами</h2>
+        <h2 class="lang-content" data-lang="en">Contact Us</h2>
+        
+        <p class="lang-content" data-lang="hy">Հեռախոսահամար: +37494353541</p>
+        <p class="lang-content" data-lang="ru">Телефон: +37494353541</p>
+        <p class="lang-content" data-lang="en">Phone: +37494353541</p>
+        
+        <p class="lang-content" data-lang="hy">Գտնվում ենք Երևանում, Հայաստան</p>
+        <p class="lang-content" data-lang="ru">Находимся в Ереване, Армения</p>
+        <p class="lang-content" data-lang="en">Located in Yerevan, Armenia</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Ավտոսերվիս | Ավտոգազ և Հեղուկ Փոխարինում</p>
+        <p class="lang-content" data-lang="ru">© 2026 Автосервис | Установка автогаза и замена масла</p>
+        <p class="lang-content" data-lang="en">© 2026 Auto Service | Autogas Installation and Oil Change</p>
+    </footer>
+
+    <script>
+        // Language switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const langContents = document.querySelectorAll('.lang-content');
+            const activeLang = localStorage.getItem('selectedLang') || 'hy';
+            
+            // Set initial language
+            setLanguage(activeLang);
+            
+            // Button click handlers
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const lang = button.getAttribute('data-lang');
+                    setLanguage(lang);
+                    localStorage.setItem('selectedLang', lang);
+                    
+                    // Update active button
+                    langButtons.forEach(btn => {
+                        btn.classList.remove('active-lang');
+                        if (btn.getAttribute('data-lang') === lang) {
+                            btn.classList.add('active-lang');
+                        }
+                    });
+                });
+            });
+            
+            function setLanguage(lang) {
+                // Update HTML lang attribute
+                document.documentElement.lang = lang;
+                
+                // Update all language-specific content
+                langContents.forEach(el => {
+                    if (el.getAttribute('data-lang') === lang) {
+                        el.style.display = 'block';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
