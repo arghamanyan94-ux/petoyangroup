@@ -9,6 +9,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Swiper.js CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 <style>
   :root{
     --bg:#0a0909;
@@ -329,27 +333,72 @@
   .oil-highlight .tagline{color:var(--gold);font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;font-size:14px;margin-bottom:10px;}
   .oil-highlight p.closing{color:var(--text-muted);margin-bottom:26px;line-height: 1.6;}
 
-  /* GALLERY - DESKTOP GRID */
-  .gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    grid-auto-rows:220px;
-    gap:10px;
+  /* SWIPER GALLERY STYLES */
+  .gallery-swiper {
+    padding: 20px 10px 60px 10px;
+    width: 100%;
   }
-  .gallery-grid a{
-    overflow:hidden;
-    border-radius:4px;
-    position:relative;
+  .gallery-swiper .swiper-slide {
+    height: auto;
+    display: flex;
+    justify-content: center;
   }
-  .gallery-grid img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:transform .5s;
+  .gallery-swiper .gallery-item {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    cursor: zoom-in;
   }
-  .gallery-grid a:hover img{transform:scale(1.08);}
-  .gallery-grid a{cursor:zoom-in;}
-  .gallery-more-wrap{display:flex;justify-content:center;margin-top:32px;}
+  .gallery-swiper .gallery-item:hover {
+    transform: translateY(-5px);
+  }
+  .gallery-swiper .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .gallery-swiper .gallery-item:hover img {
+    transform: scale(1.08);
+  }
+
+  /* Swiper Pagination */
+  .swiper-pagination-bullet {
+    background: var(--text-muted);
+    opacity: 0.4;
+    width: 8px;
+    height: 8px;
+    transition: all 0.3s ease;
+  }
+  .swiper-pagination-bullet-active {
+    background: var(--gold);
+    opacity: 1;
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* Swiper Navigation */
+  .swiper-button-next, .swiper-button-prev {
+    color: var(--gold);
+    background: rgba(10, 9, 9, 0.8);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  .swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .swiper-button-next:hover, .swiper-button-prev:hover {
+    background: var(--gold);
+    color: #0a0909;
+  }
 
   /* LIGHTBOX */
   .lightbox{
@@ -541,25 +590,12 @@
       font-size: 12px;
     }
 
-    /* SWIPEABLE GALLERY ON MOBILE */
-    .gallery-grid {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      gap: 16px;
-      padding: 0 24px 16px 24px;
-      margin: 0 -24px;
-      scrollbar-width: none;
+    /* Mobile Swiper Adjustments */
+    .swiper-button-next, .swiper-button-prev {
+      display: none; /* Rely on touch swipe on mobile */
     }
-    .gallery-grid::-webkit-scrollbar {
-      display: none;
-    }
-    .gallery-grid a {
-      flex: 0 0 85%;
-      scroll-snap-align: center;
-      height: 250px;
-      border-radius: 8px;
+    .gallery-swiper .gallery-item {
+      height: 220px;
     }
   }
   
@@ -579,12 +615,12 @@
   <div class="header-inner">
     <a class="brand" href="#top">
       <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="logo">
-      <div class="brand-text" data-i18n="brand.name">ՊԵՏՈՅԱՆ ԳՐՒՊ<span data-i18n="brand.tag">ՅՈՒՂ · ԳԱԶ · ՊԱՍԱՐԿՈՒՄ</span></div>
+      <div class="brand-text" data-i18n="brand.name">ՊԵՏՈՅԱՆ ԳՐՈՒՊ<span data-i18n="brand.tag">ՅՈՒՂ · ԳԱԶ · ՍՊԱՍԱՐԿՈՒՄ</span></div>
     </a>
     <nav id="nav">
       <a href="#services" data-i18n="nav.services">Ծառայություններ</a>
       <a href="#gallery" data-i18n="nav.gallery">Գալերեա</a>
-      <a href="#contact" data-i18n="nav.contact">ապ</a>
+      <a href="#contact" data-i18n="nav.contact">Կապ</a>
     </nav>
     <div class="header-right">
       <a href="tel:+37494353541" class="phone-link">
@@ -621,10 +657,10 @@
       <div class="hero-text">
         <span class="eyebrow" data-i18n="hero.eyebrow">Ավտոսերվիս Արթիկում</span>
         <h1 data-i18n="hero.title">Ձեր մեքենան <em>հուսալի</em> ձեռքերում</h1>
-        <p data-i18n="hero.sub">Շարժիչի ուղափոխում և ավտոգազի (LPG) տեղադրում՝ փորձառու վարպետների կողմից։ Խնայեք վառելիքի ծախսերի կեսը և երկարացրեք ձեր մեքենայի կյանքը։</p>
+        <p data-i18n="hero.sub">Շարժիչի յուղափոխում և ավտոգազի (LPG) տեղադրում՝ փորձառու վարպետների կողմից։ Խնայեք վառելիքի ծախսերի կեսը և երկարացրեք ձեր մեքենայի կյանքը։</p>
       </div>
       <div class="hero-cta">
-        <a href="tel:+37494353541" class="btn btn-primary" data-i18n="hero.call">անգահարել հիմա</a>
+        <a href="tel:+37494353541" class="btn btn-primary" data-i18n="hero.call">Զանգահարել հիմա</a>
         <a href="#services" class="btn btn-outline" data-i18n="hero.services">Տեսնել ծառայությունները</a>
       </div>
     </div>
@@ -635,7 +671,7 @@
   <div class="wrap">
     <div class="info-item">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      <span data-i18n="info.address"><strong>Հասցե՝</strong> Հայաստան, ք. Արթիկ, ահումյան փող., 3-րդ նրբանցք</span>
+      <span data-i18n="info.address"><strong>Հասցե՝</strong> Հայաստան, ք. Արթիկ, Շահումյան փող., 3-րդ նրբանցք</span>
     </div>
     <div class="info-item">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -670,7 +706,7 @@
           <ul class="bay-list">
             <li data-i18n="oil.li1">Շարժիչի յուղի և յուղի ֆիլտրի փոխարինում</li>
             <li data-i18n="oil.li2">Փոխանցումատուփի և հիդրավլիկ յուղեր</li>
-            <li data-i18n="oil.li3">Անվար տեխնիկական զննում ամեն այցի ժամանակ</li>
+            <li data-i18n="oil.li3">Անվճար տեխնիկական զննում ամեն այցի ժամանակ</li>
             <li data-i18n="oil.li4">Օրիգինալ և բարձրորակ նյութեր</li>
           </ul>
           <a href="tel:+37494353541" class="btn btn-primary" data-i18n="oil.cta">Գրանցվել</a>
@@ -691,7 +727,7 @@
             <li data-i18n="gas.li3">Վառելիքի մինչև 50% խնայողություն</li>
             <li data-i18n="gas.li4">Երաշխիք և հետագա սպասարկում</li>
           </ul>
-          <a href="tel:+37494353541" class="btn btn-gas" data-i18n="gas.cta">որհրդատվություն</a>
+          <a href="tel:+37494353541" class="btn btn-gas" data-i18n="gas.cta">Խորհրդատվություն</a>
         </div>
       </div>
     </div>
@@ -705,12 +741,12 @@
     <div class="section-head">
       <span class="eyebrow gas" data-i18n="why.eyebrow">Ինչու՞ ընտրել ավտոգազ</span>
       <h2 data-i18n="why.title">Ավտոգազի առավելությունները</h2>
-      <p data-i18n="why.sub">LPG-ն ապացուցված, անվտանգ և տնտեսող տեխնոլոգիա է, որն գտագործում են միլիոնավոր վարորդներ ամբողջ աշխարհում։</p>
+      <p data-i18n="why.sub">LPG-ն ապացուցված, անվտանգ և տնտեսող տեխնոլոգիա է, որն օգտագործում են միլիոնավոր վարորդներ ամբողջ աշխարհում։</p>
     </div>
     <div class="benefit-grid">
       <div class="benefit-card">
         <div class="num">01</div>
-        <h4 data-i18n="why.h1">Իրական նայողություն</h4>
+        <h4 data-i18n="why.h1">Իրական խնայողություն</h4>
         <p data-i18n="why.p1">Ավտոգազով երթևեկությունը մինչև 50% ավելի էժան է, քան բենզինով. կրկնակի հեռավորություն նույն գումարով։</p>
       </div>
       <div class="benefit-card">
@@ -721,12 +757,12 @@
       <div class="benefit-card">
         <div class="num">03</div>
         <h4 data-i18n="why.h3">Բնապահպանական</h4>
-        <p data-i18n="why.p3">LPG-ն արտանետում է զգալիորեն ավելի քիչ վնասակար նյութեր՝ նպաստելով մաքուր դին։</p>
+        <p data-i18n="why.p3">LPG-ն արտանետում է զգալիորեն ավելի քիչ վնասակար նյութեր՝ նպաստելով մաքուր օդին։</p>
       </div>
       <div class="benefit-card">
         <div class="num">04</div>
         <h4 data-i18n="why.h4">Մասնագիտական տեղադրում</h4>
-        <p data-i18n="why.p4">ուրաքանչյուր համակարգ տեղադրվում և կարգավորվում է փորձառու վարպետների կողմից՝ ճշգրիտ ախտորոշմամբ։</p>
+        <p data-i18n="why.p4">Յուրաքանչյուր համակարգ տեղադրվում և կարգավորվում է փորձառու վարպետների կողմից՝ ճշգրիտ ախտորոշմամբ։</p>
       </div>
     </div>
   </div>
@@ -738,13 +774,13 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow" data-i18n="oilinfo.eyebrow">Յուղափոխման ծառայություն</span>
-      <h2 data-i18n="oilinfo.title">Ձեր արժիչի լավագույն խնամքը</h2>
-      <p data-i18n="oilinfo.intro">Կանոնավոր յուղափոխումը շարիչի պաշտպանության և ձեր մեքենայի կյանքի երկարացման ամենակարևոր ծառայություններից է։ Մեր ավտոսերվիսում մենք օգտագործում ենք բարձրորակ շարժիչի ուղեր և պրեմիում ֆիլտրեր՝ ապահովելով առավելագույն արդյունավետություն և հուսալիություն։</p>
+      <h2 data-i18n="oilinfo.title">Ձեր շարժիչի լավագույն խնամքը</h2>
+      <p data-i18n="oilinfo.intro">Կանոնավոր յուղափոխումը շարժիչի պաշտպանության և ձեր մեքենայի կյանքի երկարացման ամենակարևոր ծառայություններից է։ Մեր ավտոսերվիսում մենք օգտագործում ենք բարձրորակ շարժիչի յուղեր և պրեմիում ֆիլտրեր՝ ապահովելով առավելագույն արդյունավետություն և հուսալիություն։</p>
     </div>
 
     <div class="oil-info-columns">
       <div class="oil-check-block">
-        <h3 data-i18n="oilinfo.incTitle">Մեր յուղաոխման ծառայությունը ներառում է՝</h3>
+        <h3 data-i18n="oilinfo.incTitle">Մեր յուղափոխման ծառայությունը ներառում է՝</h3>
         <ul class="oil-check-list">
           <li data-i18n="oilinfo.inc1">Շարժիչի պրեմիում յուղի փոխարինում</li>
           <li data-i18n="oilinfo.inc2">Յուղի ֆիլտրի փոխարինում</li>
@@ -769,7 +805,7 @@
     <div class="oil-perks-grid">
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk1">Պաշտպանում է շարժիչը մաշվածությունից</p></div>
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk2">Բարելավում է վառելիքի տնտեսումը</p></div>
-      <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk3">Երկարացնում է արժիչի կյանքը</p></div>
+      <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk3">Երկարացնում է շարժիչի կյանքը</p></div>
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk4">Նվազեցնում է վնասակար նստվածքները</p></div>
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk5">Պահում է շարժիչը մաքուր</p></div>
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk6">Ապահովում է առավելագույն արդյունավետություն</p></div>
@@ -799,39 +835,79 @@
         <li data-i18n="oilinfo.h4">Արագ սպասարկում</li>
         <li data-i18n="oilinfo.h5">Փորձառու վարպետներ</li>
       </ul>
-      <p class="closing" data-i18n="oilinfo.closing">Պաշտպանեք ձեր շարիչը։ Բարելավեք արդյունավետությունը։ Երկարացրեք դրա կյանքը։</p>
+      <p class="closing" data-i18n="oilinfo.closing">Պաշտպանեք ձեր շարժիչը։ Բարելավեք արդյունավետությունը։ Երկարացրեք դրա կյանքը։</p>
       <a href="tel:+37494353541" class="btn btn-primary" data-i18n="oilinfo.cta">Գրանցվել յուղափոխման</a>
     </div>
   </div>
 </section>
 
+<!-- SWIPER GALLERY SECTION -->
 <section id="gallery">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow" data-i18n="gallery.eyebrow">Մեր ավտոսերվիսը</span>
       <h2 data-i18n="gallery.title">Պատկերասրահ</h2>
     </div>
-    <div class="gallery-grid" id="galleryGrid">
-      <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/3cfb3edd-94cc-4678-9532-ecae8ae5d2fe.png?v=1784541418" alt="garage"></a>
-      <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/6305d884-527d-49d3-b6ec-bd4b8fd5f271.jpg?v=1784541416" alt="oil change"></a>
-      <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/d80237d2-5388-4930-9445-2fe0e9be19de.png?v=1784541419" alt="oil change service"></a>
-      <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/f11898f8-b339-4aee-b30f-7529b658bfef.png?v=1784541418" alt="garage"></a>
-      <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/03563d46-76b8-4807-abad-ca6b346b41a1.png?v=1784541419" alt="garage"></a>
-      <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/a2cc9e6a-8e93-4483-bde0-6477bf3e4a1e.png?v=1784541418" alt="garage"></a>
-      <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/86c69759-ffe6-4eea-bc73-4d171bc5b527.jpg?v=1784541416" alt="oil change garage"></a>
-      <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/4a704227-349e-4902-b708-906eb353b910.jpg?v=1784541416" alt="garage"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/37161adc-6708-49cd-95c8-77021fc09ec1.jpg?v=1784541416" alt="garage"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8cb79ae0-62a7-4131-9dfa-3504211a7384.png?v=1784541418" alt="autogas installation"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e57d3985-a6ef-40b1-b3bf-e3f2a471aafb.png?v=1784541418" alt="gas installation garage"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/22a41719-1140-4ddf-9c68-b1e17706d42a.png?v=1784541418" alt="lpg system"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/f6c756ce-d247-4a12-9490-789e331bb9ed.jpg?v=1784541416" alt="gas install"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e24e7121-0e5f-4f50-ad7a-dec1b6bfbefd.jpg?v=1784541416" alt="gas install"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/1fb16187-41e4-409c-ba05-86c8557b154c.png?v=1784544975" alt="autogas installation"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/ChatGPT_Image_Jul_20_2026_02_52_01_PM.png?v=1784544795" alt="garage"></a>
-      <a class="gallery-item gallery-extra" href="#" hidden><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="Petoyan Group"></a>
-    </div>
-    <div class="gallery-more-wrap">
-      <button class="btn btn-primary" id="galleryLoadMore" data-i18n="gallery.more">Բեռնել ավելին</button>
+    
+    <div class="swiper gallery-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/3cfb3edd-94cc-4678-9532-ecae8ae5d2fe.png?v=1784541418" alt="garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/6305d884-527d-49d3-b6ec-bd4b8fd5f271.jpg?v=1784541416" alt="oil change"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/d80237d2-5388-4930-9445-2fe0e9be19de.png?v=1784541419" alt="oil change service"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/f11898f8-b339-4aee-b30f-7529b658bfef.png?v=1784541418" alt="garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/03563d46-76b8-4807-abad-ca6b346b41a1.png?v=1784541419" alt="garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/a2cc9e6a-8e93-4483-bde0-6477bf3e4a1e.png?v=1784541418" alt="garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/86c69759-ffe6-4eea-bc73-4d171bc5b527.jpg?v=1784541416" alt="oil change garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/4a704227-349e-4902-b708-906eb353b910.jpg?v=1784541416" alt="garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/37161adc-6708-49cd-95c8-77021fc09ec1.jpg?v=1784541416" alt="garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8cb79ae0-62a7-4131-9dfa-3504211a7384.png?v=1784541418" alt="autogas installation"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e57d3985-a6ef-40b1-b3bf-e3f2a471aafb.png?v=1784541418" alt="gas installation garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/22a41719-1140-4ddf-9c68-b1e17706d42a.png?v=1784541418" alt="lpg system"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/f6c756ce-d247-4a12-9490-789e331bb9ed.jpg?v=1784541416" alt="gas install"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e24e7121-0e5f-4f50-ad7a-dec1b6bfbefd.jpg?v=1784541416" alt="gas install"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/1fb16187-41e4-409c-ba05-86c8557b154c.png?v=1784544975" alt="autogas installation"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/ChatGPT_Image_Jul_20_2026_02_52_01_PM.png?v=1784544795" alt="garage"></a>
+        </div>
+        <div class="swiper-slide">
+          <a class="gallery-item" href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="Petoyan Group"></a>
+        </div>
+      </div>
+      
+      <!-- Pagination & Navigation -->
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
   </div>
 </section>
@@ -881,7 +957,7 @@
           <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="logo">
           <span data-i18n="brand.name2">Պետոյան Գրուպ Ավտոսերվիս</span>
         </div>
-        <p data-i18n="footer.about">Յուղաոխման և ավտոգազի տեղադրման մասնագիտացված սերվիս Արթիկ քաղաքում։</p>
+        <p data-i18n="footer.about">Յուղափոխման և ավտոգազի տեղադրման մասնագիտացված սերվիս Արթիկ քաղաքում։</p>
       </div>
       <div class="footer-col">
         <h5 data-i18n="footer.linksTitle">Բաժիններ</h5>
@@ -898,29 +974,68 @@
     </div>
     <div class="footer-bottom">
       <span data-i18n="footer.copy">© 2026 Պետոյան Գրուպ։ Բոլոր իրավունքները պաշտպանված են։</span>
-      <span data-i18n="footer.made">ուղափոխում · Ավտոգազի տեղադրում</span>
+      <span data-i18n="footer.made">Յուղափոխում · Ավտոգազի տեղադրում</span>
     </div>
   </div>
 </footer>
 
+<!-- Swiper.js -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
+// Initialize Swiper Gallery
+const gallerySwiper = new Swiper('.gallery-swiper', {
+  slidesPerView: 1,
+  spaceBetween: 16,
+  loop: true,
+  grabCursor: true,
+  autoplay: {
+    delay: 3500,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+    dynamicBullets: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  breakpoints: {
+    640: {
+      slidesPerView: 2,
+      spaceBetween: 16,
+    },
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+    1024: {
+      slidesPerView: 4,
+      spaceBetween: 24,
+    }
+  }
+});
+
 const translations = {
   hy: {
     "meta.title":"Պետոյան Գրուպ Ավտոսերվիս | Յուղափոխում և Ավտոգազի Տեղադրում",
-    "brand.name":"ԵՏՈՅԱՆ ԳՐՈՒՊ", "brand.tag":"ՅՒՂ · ԳԱԶ · ՍՊԱՍԱՐԿՈՒՄ", "brand.name2":"Պետոյան րուպ Ավտոսերվիս",
-    "nav.services":"Ծառայություններ","nav.oil":"Յուղափոխում","nav.gas":"Ավտոգազ","nav.gallery":"ալերեա","nav.contact":"ապ",
+    "brand.name":"ՊԵՏՈՅԱՆ ԳՐՈՒՊ", "brand.tag":"ՅՈՒՂ · ԳԱԶ · ՍՊԱՍԱՐԿՈՒՄ", "brand.name2":"Պետոյան Գրուպ Ավտոսերվիս",
+    "nav.services":"Ծառայություններ","nav.oil":"Յուղափոխում","nav.gas":"Ավտոգազ","nav.gallery":"Գալերեա","nav.contact":"Կապ",
     "hero.eyebrow":"Ավտոսերվիս Արթիկում",
     "hero.title":'Ձեր մեքենան <em>հուսալի</em> ձեռքերում',
-    "hero.sub":"արժիչի յուղափոխում և ավտոգազի (LPG) տեղադրում՝ փորձառու վարպետների կողմից։ Խնայեք վառելիքի ծախսերի կեսը և երկարացրեք եր մեքենայի կյանքը։",
+    "hero.sub":"Շարժիչի յուղափոխում և ավտոգազի (LPG) տեղադրում՝ փորձառու վարպետների կողմից։ Խնայեք վառելիքի ծախսերի կեսը և երկարացրեք ձեր մեքենայի կյանքը։",
     "hero.call":"Զանգահարել հիմա","hero.services":"Տեսնել ծառայությունները",
     "info.address":"<strong>Հասցե՝</strong> Հայաստան, ք. Արթիկ, Շահումյան փող., 3-րդ նրբանցք",
-    "info.hours":"<strong>Աշխ․ Ժամեր՝</strong> րկ–Շբթ 09:00–19:00",
+    "info.hours":"<strong>Աշխ․ Ժամեր՝</strong> Երկ–Շբթ 09:00–19:00",
     "info.phone":"<strong>Հեռ.՝</strong> +374 94 353541, +374 95 740472",
     "services.eyebrow":"Մեր ծառայությունները","services.title":"Երկու ծառայություն, մեկ հասցե",
-    "services.sub":"ուղափոխում և ավտոգազի ամբողջական տեղադրում մեկ տանիքի տակ, բարձրորակ սարքավորումներով և հմուտ վարպետներով։",
-    "oil.title":"Յուղաոխում",
-    "oil.desc":"արժիչի յուղի և ֆիլտրերի պրոֆեսիոնալ ոխարինում որակյալ նյութերով՝ ապահովելով ձեր մեքենայի անխափան աշխատանքը։",
-    "oil.li1":"Շարիչի յուղի և ուղի ֆիլտրի փոխարինում","oil.li2":"Փոխանցումատուփի և հիդրավլիկ յուղեր",
+    "services.sub":"Յուղափոխում և ավտոգազի ամբողջական տեղադրում մեկ տանիքի տակ, բարձրորակ սարքավորումներով և հմուտ վարպետներով։",
+    "oil.title":"Յուղափոխում",
+    "oil.desc":"Շարժիչի յուղի և ֆիլտրերի պրոֆեսիոնալ փոխարինում որակյալ նյութերով՝ ապահովելով ձեր մեքենայի անխափան աշխատանքը։",
+    "oil.li1":"Շարժիչի յուղի և յուղի ֆիլտրի փոխարինում","oil.li2":"Փոխանցումատուփի և հիդրավլիկ յուղեր",
     "oil.li3":"Անվճար տեխնիկական զննում ամեն այցի ժամանակ","oil.li4":"Օրիգինալ և բարձրորակ նյութեր","oil.cta":"Գրանցվել",
     "gas.title":"Ավտոգազի տեղադրում (LPG)",
     "gas.desc":"Ժամանակակից LPG համակարգերի տեղադրում՝ ամբողջական դիագնոստիկայով և կարգավորմամբ։",
@@ -928,16 +1043,16 @@ const translations = {
     "gas.li3":"Վառելիքի մինչև 50% խնայողություն","gas.li4":"Երաշխիք և հետագա սպասարկում","gas.cta":"Խորհրդատվություն",
     "why.eyebrow":"Ինչու՞ ընտրել ավտոգազ","why.title":"Ավտոգազի առավելությունները",
     "why.sub":"LPG-ն ապացուցված, անվտանգ և տնտեսող տեխնոլոգիա է, որն օգտագործում են միլիոնավոր վարորդներ ամբողջ աշխարհում։",
-    "why.h1":"Իրական նայողություն","why.p1":"Ավտոգազով երթևեկությունը մինչև 50% ավելի էժան է, քան բենզինով. կրկնակի հեռավորություն նույն գումարով։",
+    "why.h1":"Իրական խնայողություն","why.p1":"Ավտոգազով երթևեկությունը մինչև 50% ավելի էժան է, քան բենզինով. կրկնակի հեռավորություն նույն գումարով։",
     "why.h2":"Երաշխիք և անվտանգություն","why.p2":"Օգտագործում ենք բարձրորակ, միջազգային չափանիշներին համապատասխան սարքեր և տալիս ենք երաշխիք։",
-    "why.h3":"Բնապահպանական","why.p3":"LPG-ն արտանետում է զգալիորեն ավելի քիչ վնասակար նյութեր նպաստելով մաքուր օդին։",
+    "why.h3":"Բնապահպանական","why.p3":"LPG-ն արտանետում է զգալիորեն ավելի քիչ վնասակար նյութեր՝ նպաստելով մաքուր օդին։",
     "why.h4":"Մասնագիտական տեղադրում","why.p4":"Յուրաքանչյուր համակարգ տեղադրվում և կարգավորվում է փորձառու վարպետների կողմից՝ ճշգրիտ ախտորոշմամբ։",
     "gallery.eyebrow":"Մեր ավտոսերվիսը","gallery.title":"Պատկերասրահ",
-    "oilinfo.eyebrow":"Յուղափոխման ծառայություն","oilinfo.title":"Ձեր շարժիչի ավագույն խնամքը",
-    "oilinfo.intro":"Կանոնավոր յուղափոխումը շարժիչի պաշտպանության և ձեր մեքենայի կյանքի երկարացման ամենակարևոր ծառայություններից է։ եր ավտոսերվիսում մենք օգտագործում ենք բարձրորակ շարժիչի յուղեր և պրեմիում ֆիլտրեր՝ ապահովելով առավելագույն արդյունավետություն և հուսալիություն։",
+    "oilinfo.eyebrow":"Յուղափոխման ծառայություն","oilinfo.title":"Ձեր շարժիչի լավագույն խնամքը",
+    "oilinfo.intro":"Կանոնավոր յուղափոխումը շարժիչի պաշտպանության և ձեր մեքենայի կյանքի երկարացման ամենակարևոր ծառայություններից է։ Մեր ավտոսերվիսում մենք օգտագործում ենք բարձրորակ շարժիչի յուղեր և պրեմիում ֆիլտրեր՝ ապահովելով առավելագույն արդյունավետություն և հուսալիություն։",
     "oilinfo.incTitle":"Մեր յուղափոխման ծառայությունը ներառում է՝",
     "oilinfo.inc1":"Շարժիչի պրեմիում յուղի փոխարինում","oilinfo.inc2":"Յուղի ֆիլտրի փոխարինում",
-    "oilinfo.inc3":"Շարիչի յուղի մակարդակի ստուգում","oilinfo.inc4":"Հեղուկների մակարդակի ստուգում (հովացուցիչ, արգելակային, ղեկի, ապակու լվացման)",
+    "oilinfo.inc3":"Շարժիչի յուղի մակարդակի ստուգում","oilinfo.inc4":"Հեղուկների մակարդակի ստուգում (հովացուցիչ, արգելակային, ղեկի, ապակու լվացման)",
     "oilinfo.inc5":"Արտահոսքերի տեսողական զննում",
     "oilinfo.whyTitle":"Ինչու ընտրել մեզ",
     "oilinfo.why1":"Փորձառու վարպետներ","oilinfo.why2":"Պրեմիում յուղեր հուսալի բրենդներից",
@@ -945,17 +1060,16 @@ const translations = {
     "oilinfo.why5":"Բարձրորակ սարքավորումներ","oilinfo.why6":"Ազնիվ առաջարկություններ առանց ավելորդ վերանորոգումների",
     "oilinfo.perk1":"Պաշտպանում է շարժիչը մաշվածությունից","oilinfo.perk2":"Բարելավում է վառելիքի տնտեսումը",
     "oilinfo.perk3":"Երկարացնում է շարժիչի կյանքը","oilinfo.perk4":"Նվազեցնում է վնասակար նստվածքները",
-    "oilinfo.perk5":"Պահում է արժիչը մաքուր","oilinfo.perk6":"Ապահովում է առավելագույն արդյունավետություն",
+    "oilinfo.perk5":"Պահում է շարժիչը մաքուր","oilinfo.perk6":"Ապահովում է առավելագույն արդյունավետություն",
     "oilinfo.brandsTitle":"Մենք օգտագործում ենք պրեմիում բրենդներ",
     "oilinfo.tagline":"Արագ · Բարձրորակ · Հուսալի","oilinfo.highlightTitle":"Պրեմիում յուղափոխման ծառայություն",
     "oilinfo.h1":"Շարժիչի պրեմիում յուղ","oilinfo.h2":"Յուղի որակյալ ֆիլտր","oilinfo.h3":"Մասնագիտական զննում",
     "oilinfo.h4":"Արագ սպասարկում","oilinfo.h5":"Փորձառու վարպետներ",
-    "oilinfo.closing":"Պաշտպանեք ձեր շարժիչը։ արելավեք արդյունավետությունը։ Երկարացրեք դրա կյանքը։",
+    "oilinfo.closing":"Պաշտպանեք ձեր շարժիչը։ Բարելավեք արդյունավետությունը։ Երկարացրեք դրա կյանքը։",
     "oilinfo.cta":"Գրանցվել յուղափոխման",
-    "gallery.more":"Բեռնել ավելին",
     "contact.eyebrow":"Կապ մեզ հետ","contact.title":"Այցելեք մեզ Արթիկում","contact.h3":"Կապի տվյալներ",
-    "contact.addrLabel":"Հասցե","contact.addrValue":"Հայաստան, ք. Արթիկ, ահումյան փողոց, 3-րդ նրբանցք",
-    "contact.phoneLabel":"Հեռախոս","contact.hoursLabel":"Աշխատանքային ժամեր","contact.hoursValue":"Երկուշաբթի–աբաթ, 09:00–19:00",
+    "contact.addrLabel":"Հասցե","contact.addrValue":"Հայաստան, ք. Արթիկ, Շահումյան փողոց, 3-րդ նրբանցք",
+    "contact.phoneLabel":"Հեռախոս","contact.hoursLabel":"Աշխատանքային ժամեր","contact.hoursValue":"Երկուշաբթի–Շաբաթ, 09:00–19:00",
     "contact.cta":"Զանգահարել",
     "footer.about":"Յուղափոխման և ավտոգազի տեղադրման մասնագիտացված սերվիս Արթիկ քաղաքում։",
     "footer.linksTitle":"Բաժիններ","footer.contactTitle":"Կապ",
@@ -1008,7 +1122,6 @@ const translations = {
     "oilinfo.h4":"Быстрое обслуживание","oilinfo.h5":"Опытные мастера",
     "oilinfo.closing":"Защитите двигатель. Улучшите производительность. Продлите срок его службы.",
     "oilinfo.cta":"Записаться на замену масла",
-    "gallery.more":"Загрузить ещё",
     "contact.eyebrow":"Связаться с нами","contact.title":"Приезжайте к нам в Артик","contact.h3":"Контактные данные",
     "contact.addrLabel":"Адрес","contact.addrValue":"Армения, г. Артик, ул. Шаумяна, 3-й переулок",
     "contact.phoneLabel":"Телефон","contact.hoursLabel":"Часы работы","contact.hoursValue":"Понедельник–Суббота, 09:00–19:00",
@@ -1064,7 +1177,6 @@ const translations = {
     "oilinfo.h4":"Fast service","oilinfo.h5":"Experienced technicians",
     "oilinfo.closing":"Protect your engine. Improve performance. Extend its life.",
     "oilinfo.cta":"Book an oil change",
-    "gallery.more":"Load More",
     "contact.eyebrow":"Get in Touch","contact.title":"Visit us in Artik","contact.h3":"Contact Details",
     "contact.addrLabel":"Address","contact.addrValue":"Armenia, Artik, Shahumyan St., 3rd Lane",
     "contact.phoneLabel":"Phone","contact.hoursLabel":"Working Hours","contact.hoursValue":"Monday–Saturday, 09:00–19:00",
@@ -1106,14 +1218,6 @@ const burger = document.getElementById('burger');
 const navEl = document.getElementById('nav');
 burger.addEventListener('click', ()=> navEl.classList.toggle('open'));
 navEl.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navEl.classList.remove('open')));
-
-const galleryLoadMore = document.getElementById('galleryLoadMore');
-if(galleryLoadMore){
-  galleryLoadMore.addEventListener('click', ()=>{
-    document.querySelectorAll('.gallery-extra').forEach(el=> el.hidden = false);
-    galleryLoadMore.style.display = 'none';
-  });
-}
 
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
