@@ -125,7 +125,7 @@
     position:relative;
     width:100%;
     overflow:hidden;
-    padding: 0; /* Removed padding for true edge-to-edge full screen */
+    padding: 0;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -139,7 +139,7 @@
   }
   .hero-media::after{
     content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(10,9,9,0.9) 100%);
+    background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(10,9,9,0.95) 100%);
     pointer-events:none;
     z-index: 2;
   }
@@ -147,42 +147,45 @@
     position:relative;
     z-index:2;
     width:100%;
-    max-width:100%; /* Full width, no black sides */
+    max-width:100%;
     overflow:hidden;
     background: #000;
-    /* Removed border, border-radius, box-shadow, and aspect-ratio */
   }
   
-  /* VERTICAL SPLIT SCREEN COMPOSITION */
+  /* SIDE-BY-SIDE SPLIT SCREEN WITH SCROLL ANIMATION */
   .hero-split {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Side by side */
     width: 100%;
-    min-height: 600px; /* Ensures adequate height */
+    height: 65vh;
+    min-height: 450px;
+    overflow: hidden; /* Crucial for slide-in effect */
   }
   .hero-split-img {
-    flex: 1;
-    width: 100%;
-    height: 50%;
-    object-fit: cover; /* Fills space without black bars */
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
     display: block;
+    will-change: transform, opacity;
   }
-  .hero-split-img:first-child {
-    object-position: center top; /* First photo appears from above */
-    animation: revealFromTop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  
+  /* Initial states (hidden and offset) */
+  .hero-split-img.top-img {
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
   }
-  .hero-split-img:last-child {
-    object-position: center bottom; /* Second photo appears from bottom */
-    animation: revealFromBottom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .hero-split-img.bottom-img {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
   }
 
-  @keyframes revealFromTop {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  @keyframes revealFromBottom {
-    from { transform: translateY(100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+  /* Active state when scrolled into view */
+  .hero-split.in-view .hero-split-img.top-img,
+  .hero-split.in-view .hero-split-img.bottom-img {
+    transform: translateY(0);
+    opacity: 1;
   }
 
   .hero-content{
@@ -537,6 +540,10 @@
     .hero-frame {
       border-radius: 0;
     }
+    .hero-split {
+      height: 50vh;
+      min-height: 300px;
+    }
     .hero-content {
       padding: 40px 0;
     }
@@ -603,7 +610,7 @@
   
   @media (prefers-reduced-motion:reduce){
     .hero-split-img {
-      animation: none !important;
+      transition: none !important;
       transform: none !important;
       opacity: 1 !important;
     }
@@ -650,10 +657,10 @@
 <section class="hero">
   <div class="hero-media">
     <div class="hero-frame">
-      <!-- Vertical Split Screen Composition -->
-      <div class="hero-split">
-        <img class="hero-split-img" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/c8dfb1d0-df72-453d-a756-2ad86aa0fc56_1.png?v=1784654432" alt="Petoyan Group Auto Service Banner Top" loading="eager" fetchpriority="high">
-        <img class="hero-split-img" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8bd72a0e-2f3f-4dd5-9603-3af064c22348.png?v=1784654033" alt="Petoyan Group Auto Service Banner Bottom" loading="eager">
+      <!-- Side-by-Side Split Screen with Scroll Animation -->
+      <div class="hero-split" id="heroSplit">
+        <img class="hero-split-img top-img" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/c8dfb1d0-df72-453d-a756-2ad86aa0fc56_1.png?v=1784654432" alt="Petoyan Group Auto Service Banner Left" loading="eager" fetchpriority="high">
+        <img class="hero-split-img bottom-img" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8bd72a0e-2f3f-4dd5-9603-3af064c22348.png?v=1784654033" alt="Petoyan Group Auto Service Banner Right" loading="eager">
       </div>
     </div>
   </div>
@@ -988,6 +995,26 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
+// Scroll-Triggered Animation for Hero Split Images
+const heroSplit = document.getElementById('heroSplit');
+if (heroSplit) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Add class to trigger slide-in animation
+        entry.target.classList.add('in-view');
+      } else {
+        // Remove class to reset animation when scrolled away (allows repeat)
+        entry.target.classList.remove('in-view');
+      }
+    });
+  }, { 
+    threshold: 0.2 // Trigger when 20% of the banner is visible
+  });
+  
+  observer.observe(heroSplit);
+}
+
 // Initialize Swiper Gallery
 const gallerySwiper = new Swiper('.gallery-swiper', {
   slidesPerView: 1,
