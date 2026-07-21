@@ -332,10 +332,24 @@
   .oil-highlight .tagline{color:var(--gold);font-family:var(--font-display);letter-spacing:0.08em;text-transform:uppercase;font-size:14px;margin-bottom:10px;}
   .oil-highlight p.closing{color:var(--text-muted);margin-bottom:26px;line-height: 1.6;}
 
-  /* GALLERY */
-  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:10px;}
-  .gallery-grid a{overflow:hidden;border-radius:4px;position:relative;}
-  .gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+  /* GALLERY - DESKTOP GRID */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:220px;
+    gap:10px;
+  }
+  .gallery-grid a{
+    overflow:hidden;
+    border-radius:4px;
+    position:relative;
+  }
+  .gallery-grid img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s;
+  }
   .gallery-grid a:hover img{transform:scale(1.08);}
   .gallery-grid a{cursor:zoom-in;}
   .gallery-more-wrap{display:flex;justify-content:center;margin-top:32px;}
@@ -505,7 +519,6 @@
     .bays { grid-template-columns: 1fr; gap: 24px; }
     .benefit-grid { grid-template-columns: 1fr; }
     .contact-grid { grid-template-columns: 1fr; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
     .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
     .footer-brand { justify-content: center; }
     .oil-info-columns { grid-template-columns: 1fr; }
@@ -529,6 +542,27 @@
     .btn {
       padding: 14px 28px;
       font-size: 12px;
+    }
+
+    /* SWIPEABLE GALLERY ON MOBILE */
+    .gallery-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
+      gap: 16px;
+      padding: 0 24px 16px 24px;
+      margin: 0 -24px; /* Allow full-bleed scrolling */
+      scrollbar-width: none; /* Firefox */
+    }
+    .gallery-grid::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge */
+    }
+    .gallery-grid a {
+      flex: 0 0 85%; /* Show 85% of the item, hinting there's more to swipe */
+      scroll-snap-align: center;
+      height: 250px;
+      border-radius: 8px;
     }
   }
   
