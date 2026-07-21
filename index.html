@@ -122,9 +122,13 @@
   /* HERO */
   .hero{position:relative;}
   .hero-media{
-    position:relative;width:100%;overflow:hidden;
-    padding:24px 24px;
-    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    padding: 0; /* Removed padding for true edge-to-edge full screen */
+    display:flex;
+    align-items:center;
+    justify-content:center;
     background:#000;
   }
   .hero-media::before{
@@ -135,66 +139,52 @@
   }
   .hero-media::after{
     content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(10,9,9,0.8) 100%);
+    background:linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(10,9,9,0.9) 100%);
     pointer-events:none;
+    z-index: 2;
   }
   .hero-frame{
-    position:relative;z-index:2;width:100%;max-width:1120px;
-    border: 1.5px solid var(--gold);
-    border-radius: 16px;
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:100%; /* Full width, no black sides */
     overflow:hidden;
-    box-shadow: 0 20px 50px rgba(200, 155, 87, 0.15), 0 0 0 1px rgba(200, 155, 87, 0.1);
-    animation:heroFloat 7s ease-in-out infinite;
-    aspect-ratio: 16 / 9;
     background: #000;
+    /* Removed border, border-radius, box-shadow, and aspect-ratio */
   }
   
-  /* SPLIT SCREEN COMPOSITION */
+  /* VERTICAL SPLIT SCREEN COMPOSITION */
   .hero-split {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
+    min-height: 600px; /* Ensures adequate height */
   }
   .hero-split-img {
     flex: 1;
-    width: 50%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    width: 100%;
+    height: 50%;
+    object-fit: cover; /* Fills space without black bars */
     display: block;
-    /* Subtle unified tone matching for cohesive comparison */
-    filter: contrast(1.05) saturate(1.05) brightness(0.98);
   }
   .hero-split-img:first-child {
-    border-right: 1px solid rgba(200, 155, 87, 0.3);
+    object-position: center top; /* First photo appears from above */
+    animation: revealFromTop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .hero-split-img:last-child {
+    object-position: center bottom; /* Second photo appears from bottom */
+    animation: revealFromBottom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  .hero-frame::before{
-    content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;z-index:3;
-    background:linear-gradient(100deg, transparent, rgba(255,255,255,0.08), transparent);
-    transform:skewX(-20deg);
-    animation:heroShine 7s ease-in-out infinite;
-    pointer-events:none;
+  @keyframes revealFromTop {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
   }
-  .hero-bolt{
-    position:absolute;z-index:4;width:12px;height:12px;border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #e9d3a8, var(--gold) 55%, #6b5138 100%);
-    box-shadow:0 1px 2px rgba(0,0,0,0.6);
+  @keyframes revealFromBottom {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
   }
-  .hero-bolt.tl{top:10px;left:10px;}
-  .hero-bolt.tr{top:10px;right:10px;}
-  .hero-bolt.bl{bottom:10px;left:10px;}
-  .hero-bolt.br{bottom:10px;right:10px;}
-  
-  @keyframes heroFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-  }
-  @keyframes heroShine{
-    0%{left:-60%;}
-    35%{left:130%;}
-    100%{left:130%;}
-  }
+
   .hero-content{
     background: linear-gradient(180deg, var(--bg-panel) 0%, #1a1415 100%);
     border-top:1px solid var(--gold);
@@ -542,15 +532,10 @@
     }
 
     .hero-media {
-      padding: 12px;
+      padding: 0;
     }
     .hero-frame {
-      border-radius: 12px;
-      border-width: 1px;
-      aspect-ratio: 16 / 9;
-    }
-    .hero-bolt {
-      display: none;
+      border-radius: 0;
     }
     .hero-content {
       padding: 40px 0;
@@ -617,8 +602,11 @@
   }
   
   @media (prefers-reduced-motion:reduce){
-    .hero-frame{animation:none;}
-    .hero-frame::before{display:none;}
+    .hero-split-img {
+      animation: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
     * {
       transition: none !important;
       animation: none !important;
@@ -662,17 +650,11 @@
 <section class="hero">
   <div class="hero-media">
     <div class="hero-frame">
-      <span class="hero-bolt tl"></span>
-      <span class="hero-bolt tr"></span>
-      <span class="hero-bolt bl"></span>
-      <span class="hero-bolt br"></span>
-      
-      <!-- Side-by-Side Split Screen Composition -->
+      <!-- Vertical Split Screen Composition -->
       <div class="hero-split">
-        <img class="hero-split-img" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/c8dfb1d0-df72-453d-a756-2ad86aa0fc56_1.png?v=1784654432" alt="Petoyan Group Auto Service Banner Left" loading="eager" fetchpriority="high">
-        <img class="hero-split-img" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8bd72a0e-2f3f-4dd5-9603-3af064c22348.png?v=1784654033" alt="Petoyan Group Auto Service Banner Right" loading="eager">
+        <img class="hero-split-img" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/c8dfb1d0-df72-453d-a756-2ad86aa0fc56_1.png?v=1784654432" alt="Petoyan Group Auto Service Banner Top" loading="eager" fetchpriority="high">
+        <img class="hero-split-img" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8bd72a0e-2f3f-4dd5-9603-3af064c22348.png?v=1784654033" alt="Petoyan Group Auto Service Banner Bottom" loading="eager">
       </div>
-      
     </div>
   </div>
   <div class="hero-content">
