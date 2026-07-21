@@ -51,7 +51,6 @@
   .eyebrow.gas{color:var(--accent-gas);}
   .eyebrow.gas::before{background:var(--accent-gas);}
 
-  /* hazard stripe divider - signature element */
   .hazard-strip{
     height:14px;
     background:repeating-linear-gradient(135deg, var(--hazard) 0 18px, #0a0909 18px 36px);
@@ -73,6 +72,7 @@
   .brand img{height:120px;width:auto;}
   .brand-text{font-family:var(--font-display);font-weight:700;font-size:17px;letter-spacing:0.04em;text-transform:uppercase;}
   .brand-text span{display:block;font-size:10.5px;font-weight:400;letter-spacing:0.18em;color:var(--text-muted);text-transform:uppercase;margin-top:1px;}
+  
   nav{display:flex;gap:28px;}
   nav a{
     font-family:var(--font-display);font-size:14px;letter-spacing:0.05em;text-transform:uppercase;
@@ -82,6 +82,7 @@
   nav a:hover{color:var(--text);}
   nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--accent-oil);transition:width .25s;}
   nav a:hover::after{width:100%;}
+  
   .header-right{display:flex;align-items:center;gap:18px;flex-shrink:0;}
   .phone-link{
     display:flex;align-items:center;gap:8px;font-family:var(--font-display);
@@ -94,6 +95,7 @@
   .phone-numbers{display:flex;flex-direction:column;gap:2px;}
   .phone-num{color:var(--text);font-size:13.5px;line-height:1.3;transition:color .2s;}
   .phone-num:hover{color:var(--accent-oil);}
+  
   .lang-switch{display:flex;gap:4px;background:var(--bg-panel-2);border-radius:var(--radius);padding:3px;border:1px solid var(--steel);}
   .lang-switch button{
     font-family:var(--font-display);font-size:12px;font-weight:700;letter-spacing:0.05em;
@@ -102,7 +104,8 @@
   }
   .lang-switch button.active{background:var(--accent-oil);color:#181818;}
   .lang-switch button:hover:not(.active){color:var(--text);}
-  .burger{display:none;background:none;border:none;color:var(--text);cursor:pointer;}
+  
+  .burger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:8px;}
 
   /* HERO */
   .hero{position:relative;}
@@ -129,7 +132,7 @@
     border:2px solid var(--accent-oil);border-radius:12px;overflow:hidden;
     box-shadow:0 30px 70px rgba(0,0,0,0.55), 0 0 0 6px rgba(10,9,9,0.6);
     animation:heroFloat 7s ease-in-out infinite;
-    height: 420px;
+    height: 420px; /* Crops image from top/bottom */
   }
   .hero-frame::before{
     content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;z-index:3;
@@ -150,7 +153,7 @@
   .hero-bg{
     position:relative;z-index:1;display:block;width:100%;height:100%;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center 20%; /* Crops top/bottom by focusing on upper-middle */
   }
   .hero-welcome{
     position:relative;z-index:2;text-align:center;width:100%;
@@ -158,7 +161,7 @@
     padding:18px 20px 0;
   }
   .hero-welcome span{
-    display:inline-block;
+    display:inline-block; /* Background size matches text exactly */
     font-family:var(--font-display);font-weight:700;text-transform:uppercase;
     letter-spacing:0.14em;color:var(--text);
     font-size:clamp(28px,5.5vw,54px);
@@ -217,7 +220,7 @@
   .section-head h2{font-size:clamp(28px,4vw,42px);}
   .section-head p{color:var(--text-muted);margin-top:14px;font-size:16px;}
 
-  /* SERVICES - bay cards */
+  /* SERVICES */
   .bays{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
   .bay{
     background:var(--bg-panel);border:1px solid var(--steel);border-radius:14px 14px 6px 6px;
@@ -331,37 +334,135 @@
   .footer-col a:hover{color:var(--accent-oil);}
   .footer-bottom{border-top:1px solid var(--steel);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--text-muted);font-size:13px;}
 
-  [data-lang-el]{display:none;}
-  [data-lang-el].active{display:revert;}
-  h1[data-lang-el].active, h2[data-lang-el].active, span[data-lang-el].active{display:inline;}
-  div[data-lang-el].active, p[data-lang-el].active, li[data-lang-el].active{display:block;}
+  /* MOBILE RESPONSIVE STYLES */
+  @media (max-width: 760px) {
+    .header-inner {
+      padding: 12px 16px;
+      gap: 12px;
+    }
+    .brand img {
+      height: 45px; /* Smaller logo for mobile */
+    }
+    .brand-text {
+      font-size: 13px;
+      line-height: 1.2;
+    }
+    .brand-text span {
+      font-size: 8px;
+      letter-spacing: 0.1em;
+    }
+    .header-right {
+      gap: 8px;
+      margin-left: auto; /* Pushes right elements together */
+    }
+    .phone-link {
+      padding: 8px; /* Square button for icon only */
+    }
+    .phone-link .phone-numbers {
+      display: none; /* Hide text, show only clickable phone icon */
+    }
+    .lang-switch {
+      gap: 2px;
+      padding: 2px;
+    }
+    .lang-switch button {
+      padding: 4px 6px;
+      font-size: 10px;
+    }
+    .burger {
+      display: block;
+      padding: 6px;
+    }
+    
+    /* Mobile Navigation Menu */
+    nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-panel);
+      flex-direction: column;
+      padding: 20px 24px;
+      gap: 4px;
+      border-bottom: 1px solid var(--steel);
+      transform: translateY(-20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      z-index: 99;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    nav.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    nav a {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--steel);
+      font-size: 16px;
+      text-align: center;
+    }
+    nav a:last-child {
+      border-bottom: none;
+    }
 
-  @media (max-width:980px){
-    .bays{grid-template-columns:1fr;}
-    .benefit-grid{grid-template-columns:repeat(2,1fr);}
-    .contact-grid{grid-template-columns:1fr;}
-    .gallery-grid{grid-template-columns:repeat(2,1fr);}
-    .footer-grid{grid-template-columns:1fr 1fr;}
-    .oil-info-columns{grid-template-columns:1fr;}
-    .oil-perks-grid{grid-template-columns:repeat(2,1fr);}
+    /* Hero Mobile Adjustments */
+    .hero-media {
+      padding: 16px;
+    }
+    .hero-frame {
+      height: 250px; /* Shorter frame for mobile cropping */
+    }
+    .hero-welcome {
+      padding: 12px 16px 0;
+    }
+    .hero-welcome span {
+      font-size: 22px;
+      padding: 4px 12px;
+    }
+    .hero-content {
+      padding: 32px 0;
+    }
+    .hero-content-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .hero-cta {
+      width: 100%;
+      flex-direction: column;
+    }
+    .hero-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Grid Mobile Adjustments */
+    .bays { grid-template-columns: 1fr; }
+    .benefit-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    .footer-brand { justify-content: center; }
+    .oil-info-columns { grid-template-columns: 1fr; }
+    .oil-perks-grid { grid-template-columns: 1fr; }
+    .oil-highlight { padding: 28px 22px; }
+    
+    section { padding: 50px 0; }
+    .section-head { margin-bottom: 32px; }
+    
+    .contact-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .contact-row .label { margin-bottom: 0; }
+    
+    .map-box { min-height: 300px; }
+    .map-box iframe { min-height: 300px; }
   }
-  @media (max-width:760px){
-    nav{position:fixed;top:76px;left:0;right:0;background:var(--bg-panel);flex-direction:column;padding:20px 24px;gap:4px;border-bottom:1px solid var(--steel);transform:translateY(-130%);transition:transform .3s;}
-    nav.open{transform:translateY(0);}
-    nav a{padding:12px 0;border-bottom:1px solid var(--steel);}
-    .burger{display:block;}
-    .header-right .phone-link span.pt{display:none;}
-    .benefit-grid{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:1fr;}
-    .oil-perks-grid{grid-template-columns:1fr;}
-    .oil-highlight{padding:28px 22px;}
-    section{padding:60px 0;}
-    .hero-media{padding:28px 16px;}
-    .hero-content{padding:32px 0;}
-    .hero-content-inner{flex-direction:column;align-items:flex-start;}
-    .hero-cta{width:100%;}
-    .hero-cta .btn{flex:1;justify-content:center;}
-  }
+  
   @media (prefers-reduced-motion:reduce){
     .hero-frame{animation:none;}
     .hero-frame::before{display:none;}
@@ -374,7 +475,7 @@
   <div class="header-inner">
     <a class="brand" href="#top">
       <img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/e3e23a53-c166-4165-97d1-6c82e4a88785.png?v=1784541417" alt="logo">
-      <div class="brand-text" data-i18n="brand.name">ԱՐԹԻԿ ԱՎՏՈՍՐՎԻՍ<span data-i18n="brand.tag">ՅՈՒՂ · ԳԱԶ · ՍՊԱՍԱՐԿՈՒՄ</span></div>
+      <div class="brand-text" data-i18n="brand.name">ԱՐԹԻԿ ԱՎՏՈՍԵՐՎԻՍ<span data-i18n="brand.tag">ՅՈՒՂ · ԳԱԶ · ՍՊԱՍԱՐԿՈՒՄ</span></div>
     </a>
     <nav id="nav">
       <a href="#services" data-i18n="nav.services">Ծառայություններ</a>
@@ -382,13 +483,13 @@
       <a href="#contact" data-i18n="nav.contact">Կապ</a>
     </nav>
     <div class="header-right">
-      <div class="phone-link">
+      <!-- Made the whole div an <a> tag so the icon is clickable on mobile -->
+      <a href="tel:+37494353541" class="phone-link">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         <span class="pt phone-numbers">
-          <a class="phone-num" href="tel:+37494353541">+374 94 353541</a>
-          <a class="phone-num" href="tel:+37495740472">+374 95 740472</a>
+          <span class="phone-num">+374 94 353541</span>
         </span>
-      </div>
+      </a>
       <div class="lang-switch">
         <button data-lang="hy" class="active">ՀԱՅ</button>
         <button data-lang="ru">РУС</button>
@@ -402,7 +503,7 @@
 </header>
 
 <div id="top"></div>
-<div class="hero-welcome"><span data-i18n="hero.welcome">արի գալուստ մեր կայք</span></div>
+<div class="hero-welcome"><span data-i18n="hero.welcome">Բարի գալուստ մեր կայք</span></div>
 <section class="hero">
   <div class="hero-media">
     <div class="hero-frame">
@@ -418,7 +519,7 @@
       <div class="hero-text">
         <span class="eyebrow" data-i18n="hero.eyebrow">Ավտոսերվիս Արթիկում</span>
         <h1 data-i18n="hero.title">Ձեր մեքենայի <em>հուսալի</em> խնամքը</h1>
-        <p data-i18n="hero.sub">Շարժիչի ուղափոխում և ավտոգազի (LPG) տեղադրում՝ փորձառու վարպետների կողմից։ Խնայեք վառելիքի ծախսերի կեսը և երկարացրեք ձեր մեքենայի կյանքը։</p>
+        <p data-i18n="hero.sub">Շարժիչի յուղափոխում և ավտոգազի (LPG) տեղադրում՝ փորձառու վարպետների կողմից։ Խնայեք վառելիքի ծախսերի կեսը և երկարացրեք ձեր մեքենայի կյանքը։</p>
       </div>
       <div class="hero-cta">
         <a href="tel:+37494353541" class="btn btn-primary" data-i18n="hero.call">Զանգահարել հիմա</a>
@@ -427,7 +528,6 @@
     </div>
   </div>
 </section>
-
 
 <div class="info-strip">
   <div class="wrap">
@@ -453,7 +553,7 @@
     <div class="section-head">
       <span class="eyebrow" data-i18n="services.eyebrow">Մեր մասնագիտացումը</span>
       <h2 data-i18n="services.title">Երկու ծառայություն, մեկ հասցե</h2>
-      <p data-i18n="services.sub">Յուղաոխման կայանից մինչև ավտոգազի ամբողջական տեղադրում՝ ամեն ինչ մեկ տանիքի տակ, մասնագիտացված սարքավորումներով և վավերացված վարպետներով։</p>
+      <p data-i18n="services.sub">Յուղափոխման կայանից մինչև ավտոգազի ամբողջական տեղադրում՝ ամեն ինչ մեկ տանիքի տակ, մասնագիտացված սարքավորումներով և վավերացված վարպետներով։</p>
     </div>
 
     <div class="bays">
@@ -463,13 +563,13 @@
           <a href="#"><img src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/86c69759-ffe6-4eea-bc73-4d171bc5b527_72c49f6d-f6d7-4346-9543-f3a080c2d9d3.jpg?v=1784544785" alt="Oil change garage"></a>
         </div>
         <div class="bay-body">
-          <span class="tag" data-i18n="oil.tag">եյ 01</span>
+          <span class="tag" data-i18n="oil.tag">Բեյ 01</span>
           <h3 data-i18n="oil.title">Յուղափոխում</h3>
-          <p data-i18n="oil.desc">Շարժիչի ուղի և ֆիլտրերի պրոֆեսիոնալ փոխարինում որակյալ նյութերով՝ ապահովելով ձեր մեքենայի անխաան աշխատանքը երկար ժամանակ։</p>
+          <p data-i18n="oil.desc">Շարժիչի յուղի և ֆիլտրերի պրոֆեսիոնալ փոխարինում որակյալ նյութերով՝ ապահովելով ձեր մեքենայի անխափան աշխատանքը երկար ժամանակ։</p>
           <ul class="bay-list">
-            <li data-i18n="oil.li1">Շարժիչի յուղի և յուղի իլտրի փոխարինում</li>
+            <li data-i18n="oil.li1">Շարժիչի յուղի և յուղի ֆիլտրի փոխարինում</li>
             <li data-i18n="oil.li2">Փոխանցումատուփի և հիդրավլիկ յուղեր</li>
-            <li data-i18n="oil.li3">Անվճար տեխնիկական ննում ամեն այցի ժամանակ</li>
+            <li data-i18n="oil.li3">Անվճար տեխնիկական զննում ամեն այցի ժամանակ</li>
             <li data-i18n="oil.li4">Օրիգինալ և վավերացված նյութեր</li>
           </ul>
           <a href="tel:+37494353541" class="btn btn-primary" data-i18n="oil.cta">Գրանցվել</a>
@@ -503,25 +603,25 @@
 <section class="benefits">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow gas" data-i18n="why.eyebrow">Ինչու նտրել ավտոգազ</span>
+      <span class="eyebrow gas" data-i18n="why.eyebrow">Ինչու ընտրել ավտոգազ</span>
       <h2 data-i18n="why.title">Ավտոգազի առավելությունները</h2>
       <p data-i18n="why.sub">LPG-ն ապացուցված, անվտանգ և տնտեսող տեխնոլոգիա է, որն օգտագործում են միլիոնավոր վարորդներ ամբողջ աշխարհում։</p>
     </div>
     <div class="benefit-grid">
       <div class="benefit-card">
         <div class="num">01</div>
-        <h4 data-i18n="why.h1">Իրական նայողություն</h4>
-        <p data-i18n="why.p1">Ավտոգազով երթևեկությունը մինչև 50% ավելի էժան է, քան բենզինով. կրկնակի հեռավորություն նույն գումարով։</p>
+        <h4 data-i18n="why.h1">Իրական խնայողություն</h4>
+        <p data-i18n="why.p1">Ավտոգազով երթևեկությունը մինչև 50% ավելի էժան է, քան բենզինով. կրկնակի հեռավորություն՝ նույն գումարով։</p>
       </div>
       <div class="benefit-card">
         <div class="num">02</div>
         <h4 data-i18n="why.h2">Երաշխիք և անվտանգություն</h4>
-        <p data-i18n="why.p2">գտագործում ենք վավերացված, միջազգային չափանիշներին համապատասխան բաղադրիչներ և տալիս ենք երաշխիք։</p>
+        <p data-i18n="why.p2">Օգտագործում ենք վավերացված, միջազգային չափանիշներին համապատասխան բաղադրիչներ և տալիս ենք երաշխիք։</p>
       </div>
       <div class="benefit-card">
         <div class="num">03</div>
-        <h4 data-i18n="why.h3">նապահպանական</h4>
-        <p data-i18n="why.p3">LPG-ն արտանետում է զգալիորեն ավելի քիչ վնասակար նյութեր՝ նպաստելով մաքուր դին։</p>
+        <h4 data-i18n="why.h3">Բնապահպանական</h4>
+        <p data-i18n="why.p3">LPG-ն արտանետում է զգալիորեն ավելի քիչ վնասակար նյութեր՝ նպաստելով մաքուր օդին։</p>
       </div>
       <div class="benefit-card">
         <div class="num">04</div>
@@ -538,20 +638,20 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow" data-i18n="oilinfo.eyebrow">Յուղափոխման ծառայություն</span>
-      <h2 data-i18n="oilinfo.title">եր շարժիչի լավագույն խնամքը</h2>
-      <p data-i18n="oilinfo.intro">Կանոնավոր յուղաոխումը շարիչի պաշտպանության և ձեր մեքենայի կյանքի երկարացման ամենակարևոր ծառայություններից է։ Petoyan Group Auto Service-ում մենք օգտագործում ենք բարձրորակ շարժիչի ուղեր և պրեմիում ֆիլտրեր՝ ապահովելով առավելագույն արդյունավետություն և հուսալիություն։</p>
+      <h2 data-i18n="oilinfo.title">Ձեր շարժիչի լավագույն խնամքը</h2>
+      <p data-i18n="oilinfo.intro">Կանոնավոր յուղափոխումը շարժիչի պաշտպանության և ձեր մեքենայի կյանքի երկարացման ամենակարևոր ծառայություններից է։ Petoyan Group Auto Service-ում մենք օգտագործում ենք բարձրորակ շարժիչի յուղեր և պրեմիում ֆիլտրեր՝ ապահովելով առավելագույն արդյունավետություն և հուսալիություն։</p>
     </div>
 
     <div class="oil-info-columns">
       <div class="oil-check-block">
-        <h3 data-i18n="oilinfo.incTitle">Մեր յուղափոխման ծառայությունը ներառում է</h3>
+        <h3 data-i18n="oilinfo.incTitle">Մեր յուղափոխման ծառայությունը ներառում է՝</h3>
         <ul class="oil-check-list">
           <li data-i18n="oilinfo.inc1">Շարժիչի պրեմիում յուղի փոխարինում</li>
           <li data-i18n="oilinfo.inc2">Բարձրորակ յուղի ֆիլտրի փոխարինում</li>
           <li data-i18n="oilinfo.inc3">Շարժիչի յուղի մակարդակի ստուգում</li>
           <li data-i18n="oilinfo.inc4">Հեղուկների մակարդակի ստուգում (հովացուցիչ, արգելակային, ղեկի, ապակու լվացման)</li>
           <li data-i18n="oilinfo.inc5">Արտահոսքերի տեսողական զննում</li>
-          <li data-i18n="oilinfo.inc6">Անվադողերի նշման ստուգում</li>
+          <li data-i18n="oilinfo.inc6">Անվադողերի ճնշման ստուգում</li>
           <li data-i18n="oilinfo.inc7">Սպասարկման հիշեցման վերակայում (հնարավորության դեպքում)</li>
         </ul>
       </div>
@@ -563,7 +663,7 @@
           <li data-i18n="oilinfo.why3">Արագ սպասարկում սպասման ընթացքում</li>
           <li data-i18n="oilinfo.why4">Մրցունակ գներ</li>
           <li data-i18n="oilinfo.why5">Մասնագիտական սարքավորումներ</li>
-          <li data-i18n="oilinfo.why6">Ազնիվ առաջարկություններ առանց ավելորդ վերանորոգումների</li>
+          <li data-i18n="oilinfo.why6">Ազնիվ առաջարկություններ՝ առանց ավելորդ վերանորոգումների</li>
         </ul>
       </div>
     </div>
@@ -572,7 +672,7 @@
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk1">Պաշտպանում է շարժիչը մաշվածությունից</p></div>
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk2">Բարելավում է վառելիքի տնտեսումը</p></div>
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk3">Երկարացնում է շարժիչի կյանքը</p></div>
-      <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk4">վազեցնում է վնասակար նստվածքները</p></div>
+      <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk4">Նվազեցնում է վնասակար նստվածքները</p></div>
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk5">Պահպանում է շարժիչը մաքուր</p></div>
       <div class="oil-perk"><span class="mark">✓</span><p data-i18n="oilinfo.perk6">Ապահովում է առավելագույն արդյունավետություն</p></div>
     </div>
@@ -601,8 +701,8 @@
         <li data-i18n="oilinfo.h4">Արագ սպասարկում</li>
         <li data-i18n="oilinfo.h5">Փորձառու վարպետներ</li>
       </ul>
-      <p class="closing" data-i18n="oilinfo.closing">աշտպանեք ձեր շարժիչը։ արելավեք արդյունավետությունը։ Երկարացրեք դրա կյանքը։</p>
-      <a href="tel:+37494353541" class="btn btn-primary" data-i18n="oilinfo.cta">Գրանցվել յուղաոխման</a>
+      <p class="closing" data-i18n="oilinfo.closing">Պաշտպանեք ձեր շարժիչը։ Բարելավեք արդյունավետությունը։ Երկարացրեք դրա կյանքը։</p>
+      <a href="tel:+37494353541" class="btn btn-primary" data-i18n="oilinfo.cta">Գրանցվել յուղափոխման</a>
     </div>
   </div>
 </section>
@@ -654,7 +754,7 @@
     </div>
     <div class="contact-grid">
       <div class="contact-info">
-        <h3 data-i18n="contact.h3">ապի տվյալներ</h3>
+        <h3 data-i18n="contact.h3">Կապի տվյալներ</h3>
         <div class="contact-row">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           <div><div class="label" data-i18n="contact.addrLabel">Հասցե</div><div class="value" data-i18n="contact.addrValue">Հայաստան, ք. Արթիկ, Շահումյան փողոց, 3-րդ նրբանցք</div></div>
@@ -709,22 +809,22 @@
 <script>
 const translations = {
   hy: {
-    "meta.title":"Արթիկ Ավտոսերվիս | ուղափոխում և Ավտոգազի Տեղադրում",
-    "brand.name":"ԱԹԻԿ ԱՎՈՍԵՐԻՍ", "brand.tag":"ՈՒՂ · ԳԱԶ · ՍՊԱՍԱՐԿՈՒՄ", "brand.name2":"Արթիկ Ավտոսերվիս",
-    "nav.services":"Ծառայություններ","nav.oil":"Յուղափոխում","nav.gas":"Ավտոգազ","nav.gallery":"ալերեա","nav.contact":"Կապ",
+    "meta.title":"Արթիկ Ավտոսերվիս | Յուղափոխում և Ավտոգազի Տեղադրում",
+    "brand.name":"ԱՐԹԻԿ ԱՎՏՈՍԵՐՎԻՍ", "brand.tag":"ՅՈՒՂ · ԳԱԶ · ՍՊԱՍԱՐԿՈՒՄ", "brand.name2":"Արթիկ Ավտոսերվիս",
+    "nav.services":"Ծառայություններ","nav.oil":"Յուղափոխում","nav.gas":"Ավտոգազ","nav.gallery":"Գալերեա","nav.contact":"Կապ",
     "hero.eyebrow":"Ավտոսերվիս Արթիկում",
-    "hero.welcome":"արի գալուստ մեր կայք",
-    "hero.title":'եր մեքենայի <em>հուսալի</em> խնամքը',
-    "hero.sub":"արժիչի յուղափոխում և ավտոգազի (LPG) տեղադրում՝ փորձառու վարպետների կողմից։ Խնայեք վառելիքի ծախսերի կեսը և երկարացրեք ձեր մեքենայի կյանքը։",
+    "hero.welcome":"Բարի գալուստ մեր կայք",
+    "hero.title":'Ձեր մեքենայի <em>հուսալի</em> խնամքը',
+    "hero.sub":"Շարժիչի յուղափոխում և ավտոգազի (LPG) տեղադրում՝ փորձառու վարպետների կողմից։ Խնայեք վառելիքի ծախսերի կեսը և երկարացրեք ձեր մեքենայի կյանքը։",
     "hero.call":"Զանգահարել հիմա","hero.services":"Տեսնել ծառայությունները",
     "info.address":"<strong>Հասցե՝</strong> Հայաստան, ք. Արթիկ, Շահումյան փող., 3-րդ նրբանցք",
-    "info.hours":"<strong>Ժամեր</strong> Երկ–Շբթ 09:00–19:00",
+    "info.hours":"<strong>Ժամեր՝</strong> Երկ–Շբթ 09:00–19:00",
     "info.phone":"<strong>Հեռ.՝</strong> +374 94 353541, +374 95 740472",
     "services.eyebrow":"Մեր մասնագիտացումը","services.title":"Երկու ծառայություն, մեկ հասցե",
-    "services.sub":"ուղափոխման կայանից մինչև ավտոգազի ամբողջական տեղադրում՝ ամեն ինչ մեկ տանիքի տակ, մասնագիտացված սարքավորումներով և վավերացված վարպետներով։",
+    "services.sub":"Յուղափոխման կայանից մինչև ավտոգազի ամբողջական տեղադրում՝ ամեն ինչ մեկ տանիքի տակ, մասնագիտացված սարքավորումներով և վավերացված վարպետներով։",
     "oil.tag":"Բեյ 01","oil.title":"Յուղափոխում",
-    "oil.desc":"Շարժիչի յուղի և ֆիլտրերի պրոֆեսիոնալ փոխարինում որակյալ նյութերով՝ ապահովելով ձեր մեքենայի անխաան աշխատանքը երկար ժամանակ։",
-    "oil.li1":"Շարժիչի յուղի և ուղի ֆիլտրի փոխարինում","oil.li2":"Փոխանցումատուփի և հիդրավլիկ յուղեր",
+    "oil.desc":"Շարժիչի յուղի և ֆիլտրերի պրոֆեսիոնալ փոխարինում որակյալ նյութերով՝ ապահովելով ձեր մեքենայի անխափան աշխատանքը երկար ժամանակ։",
+    "oil.li1":"Շարժիչի յուղի և յուղի ֆիլտրի փոխարինում","oil.li2":"Փոխանցումատուփի և հիդրավլիկ յուղեր",
     "oil.li3":"Անվճար տեխնիկական զննում ամեն այցի ժամանակ","oil.li4":"Օրիգինալ և վավերացված նյութեր","oil.cta":"Գրանցվել",
     "gas.tag":"Բեյ 02","gas.title":"Ավտոգազի տեղադրում (LPG)",
     "gas.desc":"Ժամանակակից LPG համակարգերի տեղադրում՝ ամբողջական դիագնոստիկայով և կարգավորմամբ։ Ավտոգազը բենզինից էժան է մինչև կրկնակի, և համակարգն ինքն իրեն վճարում է կարճ ժամանակում։",
@@ -733,30 +833,30 @@ const translations = {
     "why.eyebrow":"Ինչու ընտրել ավտոգազ","why.title":"Ավտոգազի առավելությունները",
     "why.sub":"LPG-ն ապացուցված, անվտանգ և տնտեսող տեխնոլոգիա է, որն օգտագործում են միլիոնավոր վարորդներ ամբողջ աշխարհում։",
     "why.h1":"Իրական խնայողություն","why.p1":"Ավտոգազով երթևեկությունը մինչև 50% ավելի էժան է, քան բենզինով. կրկնակի հեռավորություն՝ նույն գումարով։",
-    "why.h2":"Երաշխիք և անվտանգություն","why.p2":"Օգտագործում ենք վավերացված, միջազգային չաանիշներին համապատասխան բաղադրիչներ և տալիս ենք երաշխիք։",
-    "why.h3":"Բնապահպանական","why.p3":"LPG-ն արտանետում է զգալիորեն ավելի քիչ վնասակար նյութեր նպաստելով մաքուր օդին։",
-    "why.h4":"Մասնագիտական տեղադրում","why.p4":"Յուրաքանչյուր համակարգ տեղադրվում և կարգավորվում է փորձառու վարպետների կողմից ճշգրիտ ախտորոշմամբ։",
+    "why.h2":"Երաշխիք և անվտանգություն","why.p2":"Օգտագործում ենք վավերացված, միջազգային չափանիշներին համապատասխան բաղադրիչներ և տալիս ենք երաշխիք։",
+    "why.h3":"Բնապահպանական","why.p3":"LPG-ն արտանետում է զգալիորեն ավելի քիչ վնասակար նյութեր՝ նպաստելով մաքուր օդին։",
+    "why.h4":"Մասնագիտական տեղադրում","why.p4":"Յուրաքանչյուր համակարգ տեղադրվում և կարգավորվում է փորձառու վարպետների կողմից՝ ճշգրիտ ախտորոշմամբ։",
     "gallery.eyebrow":"Մեր սերվիսը","gallery.title":"Աշխատանքային պահեր",
-    "oilinfo.eyebrow":"Յուղափոխման ծառայություն","oilinfo.title":"Ձեր շարժիչի ավագույն խնամքը",
-    "oilinfo.intro":"Կանոնավոր յուղաոխումը շարիչի պաշտպանության և ձեր մեքենայի կյանքի երկարացման ամենակարևոր ծառայություններից է։ Petoyan Group Auto Service-ում մենք օգտագործում ենք բարձրորակ շարժիչի ուղեր և պրեմիում ֆիլտրեր՝ ապահովելով առավելագույն արդյունավետություն և հուսալիություն։",
-    "oilinfo.incTitle":"Մեր յուղափոխման ծառայությունը ներառում է",
-    "oilinfo.inc1":"Շարժիչի պրեմիում յուղի փոխարինում","oilinfo.inc2":"Բարրորակ յուղի ֆիլտրի փոխարինում",
+    "oilinfo.eyebrow":"Յուղափոխման ծառայություն","oilinfo.title":"Ձեր շարժիչի լավագույն խնամքը",
+    "oilinfo.intro":"Կանոնավոր յուղափոխումը շարժիչի պաշտպանության և ձեր մեքենայի կյանքի երկարացման ամենակարևոր ծառայություններից է։ Petoyan Group Auto Service-ում մենք օգտագործում ենք բարձրորակ շարժիչի յուղեր և պրեմիում ֆիլտրեր՝ ապահովելով առավելագույն արդյունավետություն և հուսալիություն։",
+    "oilinfo.incTitle":"Մեր յուղափոխման ծառայությունը ներառում է՝",
+    "oilinfo.inc1":"Շարժիչի պրեմիում յուղի փոխարինում","oilinfo.inc2":"Բարձրորակ յուղի ֆիլտրի փոխարինում",
     "oilinfo.inc3":"Շարժիչի յուղի մակարդակի ստուգում","oilinfo.inc4":"Հեղուկների մակարդակի ստուգում (հովացուցիչ, արգելակային, ղեկի, ապակու լվացման)",
     "oilinfo.inc5":"Արտահոսքերի տեսողական զննում","oilinfo.inc6":"Անվադողերի ճնշման ստուգում",
     "oilinfo.inc7":"Սպասարկման հիշեցման վերակայում (հնարավորության դեպքում)",
     "oilinfo.whyTitle":"Ինչու ընտրել մեզ",
-    "oilinfo.why1":"Փորձառու վարպետներ","oilinfo.why2":"րեմիում յուղեր հուսալի բրենդներից",
+    "oilinfo.why1":"Փորձառու վարպետներ","oilinfo.why2":"Պրեմիում յուղեր հուսալի բրենդներից",
     "oilinfo.why3":"Արագ սպասարկում սպասման ընթացքում","oilinfo.why4":"Մրցունակ գներ",
-    "oilinfo.why5":"ասնագիտական սարքավորումներ","oilinfo.why6":"Ազնիվ առաջարկություններ՝ առանց ավելորդ վերանորոգումների",
+    "oilinfo.why5":"Մասնագիտական սարքավորումներ","oilinfo.why6":"Ազնիվ առաջարկություններ՝ առանց ավելորդ վերանորոգումների",
     "oilinfo.perk1":"Պաշտպանում է շարժիչը մաշվածությունից","oilinfo.perk2":"Բարելավում է վառելիքի տնտեսումը",
-    "oilinfo.perk3":"Երկարացնում է արժիչի կյանքը","oilinfo.perk4":"Նվազեցնում է վնասակար նստվածքները",
+    "oilinfo.perk3":"Երկարացնում է շարժիչի կյանքը","oilinfo.perk4":"Նվազեցնում է վնասակար նստվածքները",
     "oilinfo.perk5":"Պահպանում է շարժիչը մաքուր","oilinfo.perk6":"Ապահովում է առավելագույն արդյունավետություն",
     "oilinfo.brandsTitle":"Մենք օգտագործում ենք պրեմիում բրենդներ",
-    "oilinfo.tagline":"Արագ · Մասնագիտական · Հուսալի","oilinfo.highlightTitle":"Պրեմիում ուղափոխման առայություն",
+    "oilinfo.tagline":"Արագ · Մասնագիտական · Հուսալի","oilinfo.highlightTitle":"Պրեմիում յուղափոխման ծառայություն",
     "oilinfo.h1":"Պրեմիում շարժիչի յուղ","oilinfo.h2":"Որակյալ յուղի ֆիլտր","oilinfo.h3":"Մասնագիտական զննում",
     "oilinfo.h4":"Արագ սպասարկում","oilinfo.h5":"Փորձառու վարպետներ",
     "oilinfo.closing":"Պաշտպանեք ձեր շարժիչը։ Բարելավեք արդյունավետությունը։ Երկարացրեք դրա կյանքը։",
-    "oilinfo.cta":"Գրանցվել յուղաոխման",
+    "oilinfo.cta":"Գրանցվել յուղափոխման",
     "gallery.sub":"Հայացք մեր սերվիս կենտրոնի ներսում՝ յուղափոխման և ավտոգազի տեղադրման բեյերում։",
     "gallery.more":"Ավելին բեռնել",
     "contact.eyebrow":"Կապ մեզ հետ","contact.title":"Այցելեք մեզ Արթիկում","contact.h3":"Կապի տվյալներ",
@@ -765,7 +865,7 @@ const translations = {
     "contact.cta":"Զանգահարել",
     "footer.about":"Յուղափոխման և ավտոգազի տեղադրման մասնագիտացված սերվիս Արթիկ քաղաքում։",
     "footer.linksTitle":"Նավարկություն","footer.contactTitle":"Կապ",
-    "footer.copy":"© 2026 Արթիկ Ավտոսերվիս։ Բոլոր րավունքները պաշտպանված են։","footer.made":"Յուղափոխում · Ավտոգազի տեղադրում"
+    "footer.copy":"© 2026 Արթիկ Ավտոսերվիս։ Բոլոր իրավունքները պաշտպանված են։","footer.made":"Յուղափոխում · Ավտոգազի տեղադրում"
   },
   ru: {
     "meta.title":"Автосервис Артик | Замена масла и установка автогаза",
