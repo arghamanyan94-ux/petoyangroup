@@ -129,7 +129,7 @@
   }
   .hero-media::before{
     content:"";position:absolute;inset:-30px;
-    background-image:url('https://cdn.shopify.com/s/files/1/0685/0786/1063/files/a2636433-69af-4b5a-8b95-f2c4279627e8new.png?v=1784624744');
+    background-image:url('https://cdn.shopify.com/s/files/1/0685/0786/1063/files/c8dfb1d0-df72-453d-a756-2ad86aa0fc56_1.png?v=1784654432');
     background-size:cover;background-position:center;
     filter:blur(40px) brightness(0.32) saturate(1.15);
     transform:scale(1.15);
@@ -146,7 +146,37 @@
     overflow:hidden;
     box-shadow: 0 20px 50px rgba(200, 155, 87, 0.15), 0 0 0 1px rgba(200, 155, 87, 0.1);
     animation:heroFloat 7s ease-in-out infinite;
+    aspect-ratio: 16 / 9;
+    background: #111;
   }
+  
+  /* CINEMATIC SLIDESHOW */
+  .hero-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 1s ease-in-out, transform 5s ease-out;
+    will-change: opacity, transform;
+  }
+  .hero-slide.active {
+    opacity: 1;
+    transform: scale(1.08); /* Subtle Ken Burns zoom */
+  }
+
   .hero-frame::before{
     content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;z-index:3;
     background:linear-gradient(100deg, transparent, rgba(255,255,255,0.12), transparent);
@@ -163,9 +193,7 @@
   .hero-bolt.tr{top:10px;right:10px;}
   .hero-bolt.bl{bottom:10px;left:10px;}
   .hero-bolt.br{bottom:10px;right:10px;}
-  .hero-bg{
-    position:relative;z-index:1;display:block;width:100%;height:auto;
-  }
+  
   @keyframes heroFloat{
     0%,100%{transform:translateY(0);}
     50%{transform:translateY(-10px);}
@@ -527,10 +555,7 @@
     .hero-frame {
       border-radius: 12px;
       border-width: 1px;
-    }
-    .hero-bg {
-      max-height: 300px;
-      object-fit: cover;
+      aspect-ratio: 16 / 9;
     }
     .hero-bolt {
       display: none;
@@ -592,7 +617,7 @@
 
     /* Mobile Swiper Adjustments */
     .swiper-button-next, .swiper-button-prev {
-      display: none; /* Rely on touch swipe on mobile */
+      display: none;
     }
     .gallery-swiper .gallery-item {
       height: 220px;
@@ -649,7 +674,13 @@
       <span class="hero-bolt tr"></span>
       <span class="hero-bolt bl"></span>
       <span class="hero-bolt br"></span>
-      <img class="hero-bg" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/a2636433-69af-4b5a-8b95-f2c4279627e8new.png?v=1784624744" alt="Petoyan Group auto service garage">
+      
+      <!-- Cinematic Infinite Loop Slideshow -->
+      <div class="hero-slideshow">
+        <img class="hero-slide active" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/c8dfb1d0-df72-453d-a756-2ad86aa0fc56_1.png?v=1784654432" alt="Petoyan Group Auto Service Banner 1" loading="eager" fetchpriority="high">
+        <img class="hero-slide" src="https://cdn.shopify.com/s/files/1/0685/0786/1063/files/8bd72a0e-2f3f-4dd5-9603-3af064c22348.png?v=1784654033" alt="Petoyan Group Auto Service Banner 2" loading="eager">
+      </div>
+      
     </div>
   </div>
   <div class="hero-content">
@@ -983,6 +1014,21 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
+// Hero Slideshow Logic (4s display + 1s fade = 5s cycle)
+const slides = document.querySelectorAll('.hero-slide');
+let currentSlide = 0;
+
+function nextSlide() {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add('active');
+}
+
+// Initial delay of 4 seconds, then cycle every 5 seconds
+setTimeout(() => {
+  setInterval(nextSlide, 5000);
+}, 4000);
+
 // Initialize Swiper Gallery
 const gallerySwiper = new Swiper('.gallery-swiper', {
   slidesPerView: 1,
